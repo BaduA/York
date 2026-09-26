@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Dirt&family=Caveat+Brush&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f0eee9;font-family:Barlow,system-ui,sans-serif}
+a{color:#1a1a1a}a:hover{color:#C8102E}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:600 13px/1.2 Barlow,system-ui,sans-serif;color:#1a1a1a}
+.dv-opts{display:flex;flex-wrap:wrap;gap:36px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11.5px/1.3 Barlow,system-ui,sans-serif;color:rgba(0,0,0,.55)}
+.dv-opt:target .dv-oid{background:#C8102E;color:#fff}
+.dv-next{margin:24px 0 0;font:12px/1.5 Barlow,system-ui,sans-serif;color:rgba(0,0,0,.5)}
+.dv-note{max-width:760px;margin:0 0 28px;font:13px/1.6 Barlow,system-ui,sans-serif;color:rgba(0,0,0,.6)}
+.dv-note b{color:#1a1a1a}
+.by-scroll::-webkit-scrollbar{display:none}
+@keyframes byToast{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+</style></helmet>
+
+<section class="dv-turn" id="t2">
+<div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">Ekran 2–4 — <a class="dv-oid" href="#1a">1a</a> dilinde devam</span></div>
+<p class="dv-note">Aynı sistem: grunge yalnızca ekran başlıkları + kokteyl adları, kafes motifi yalnızca köşe aksanı, premium altın yalnızca 620₺ ürün ve “Tarifim” satırlarında. Hepsi çalışır durumda: satıra dokun → detay sheet, adım adım kurgu → canlı bardak + canlı fiyat, sepette adet değişimi → canlı toplam, ödeme öncesi 18+ kapısı.</p>
+<div class="dv-opts">
+
+<div class="dv-opt" id="2a">
+<div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>Klasikler — liste + detay sheet (satıra dokun)</div>
+<div class="dv-card">
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" width="{{ 402 }}" height="{{ 874 }}" hint-size="402px,874px">
+<div style="height:874px;display:flex;flex-direction:column;background:#0A0A0A;font-family:Barlow,system-ui,sans-serif;position:relative;overflow:hidden">
+
+<div class="by-scroll" style="flex:1;overflow-y:auto;scrollbar-width:none;padding:64px 0 24px">
+<div style="padding:16px 24px 8px">
+<div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:600;margin-bottom:8px">Bar kartı · 9 tarif</div>
+<h1 style="margin:0;font-family:'Rubik Dirt',system-ui;font-size:34px;line-height:1;color:#fff;text-transform:uppercase">Klasikler</h1>
+</div>
+
+<div style="display:flex;gap:8px;padding:20px 24px 12px;overflow-x:auto;scrollbar-width:none" class="by-scroll">
+<div style="flex:none;height:36px;padding:0 16px;border-radius:18px;background:#C8102E;color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center">Tümü</div>
+<div style="flex:none;height:36px;padding:0 16px;border-radius:18px;background:#141414;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-size:13px;font-weight:500;display:flex;align-items:center">Ferah</div>
+<div style="flex:none;height:36px;padding:0 16px;border-radius:18px;background:#141414;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-size:13px;font-weight:500;display:flex;align-items:center">Sert</div>
+<div style="flex:none;height:36px;padding:0 16px;border-radius:18px;background:#141414;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-size:13px;font-weight:500;display:flex;align-items:center">Ekşi</div>
+</div>
+
+<sc-for list="{{ classicRows }}" as="row" hint-placeholder-count="6">
+<div onClick="{{ row.onOpen }}" style="display:flex;align-items:center;gap:16px;padding:16px 24px;border-bottom:1px solid rgba(255,255,255,.06);cursor:pointer" style-hover="background:#101010">
+<div style="width:56px;height:56px;flex:none;border-radius:12px;background:{{ row.thumb }}"></div>
+<div style="flex:1;min-width:0">
+<div style="font-family:'Barlow Condensed',Barlow;font-size:20px;font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:.01em">{{ row.name }}</div>
+<div style="font-size:12.5px;line-height:1.35;color:rgba(255,255,255,.6);margin-top:3px">{{ row.ing }}</div>
+</div>
+<span style="font-family:'Barlow Condensed',Barlow;font-size:20px;font-weight:700;color:#fff;flex:none">{{ row.price }}</span>
+</div>
+</sc-for>
+<p style="margin:28px 24px 0;font-family:'Caveat Brush',cursive;font-size:17px;color:rgba(255,255,255,.22)">“You'll never york alone.”</p>
+</div>
+
+<sc-if value="{{ detailOpen }}" hint-placeholder-val="{{ true }}">
+<div style="position:absolute;inset:0;background:rgba(0,0,0,.6);z-index:30" onClick="{{ closeDetail }}"></div>
+</sc-if>
+<sc-if value="{{ detailOpen }}" hint-placeholder-val="{{ true }}">
+<div style="position:absolute;left:0;right:0;bottom:0;z-index:31;background:#0F0F0F;border-top:1px solid rgba(255,255,255,.1);border-radius:24px 24px 0 0;animation:byToast .24s ease-out;overflow:hidden">
+<div style="display:flex;justify-content:center;padding:10px 0 0"><div style="width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,.22)"></div></div>
+<div style="height:200px;margin:14px 20px 0;border-radius:16px;position:relative;background:repeating-linear-gradient(135deg,#171717 0 9px,#1e1e1e 9px 18px);display:flex;align-items:center;justify-content:center">
+<span style="font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.1em;color:rgba(255,255,255,.32);text-transform:uppercase">kokteyl fotoğrafı</span>
+<div style="position:absolute;top:0;right:0;width:72px;height:3px;background:#C8102E"></div>
+<div style="position:absolute;top:0;right:0;width:3px;height:72px;background:#C8102E"></div>
+<div style="position:absolute;top:14px;right:14px;width:40px;height:3px;background:rgba(200,16,46,.7)"></div>
+<div style="position:absolute;top:14px;right:14px;width:3px;height:40px;background:rgba(200,16,46,.7)"></div>
+</div>
+<div style="padding:20px 24px 28px">
+<h2 style="margin:0 0 6px;font-family:'Rubik Dirt',system-ui;font-size:26px;line-height:1.05;color:#fff;text-transform:uppercase">{{ dName }}</h2>
+<p style="margin:0 0 4px;font-size:14px;line-height:1.45;color:rgba(255,255,255,.62)">{{ dIng }}</p>
+<div style="display:flex;align-items:baseline;gap:10px;margin:18px 0 20px">
+<span style="font-family:'Barlow Condensed',Barlow;font-size:30px;font-weight:700;color:#fff">{{ dPrice }}</span>
+<span style="font-size:12.5px;color:rgba(255,255,255,.5)">·  ~3 dk hazırlık</span>
+</div>
+<div style="display:flex;gap:12px">
+<button onClick="{{ tuneDetail }}" style="flex:1;height:52px;border-radius:14px;background:transparent;border:1px solid rgba(255,255,255,.2);color:#fff;font-family:Barlow;font-size:15px;font-weight:600;cursor:pointer">Kendine göre ayarla</button>
+<button onClick="{{ addDetail }}" style="flex:1;height:52px;border-radius:14px;background:#C8102E;border:none;color:#fff;font-family:Barlow;font-size:15px;font-weight:600;cursor:pointer">Sepete Ekle</button>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:24px;right:24px;bottom:104px;padding:14px 18px;border-radius:14px;background:#C8102E;color:#fff;font-size:14px;font-weight:600;z-index:40;animation:byToast .22s ease-out">{{ toast }}</div>
+</sc-if>
+
+<div style="flex:none;height:88px;border-top:1px solid rgba(255,255,255,.08);background:rgba(10,10,10,.92);display:grid;grid-template-columns:repeat(4,1fr);align-items:start;padding-top:10px">
+<div style="display:flex;flex-direction:column;align-items:center;gap:7px;min-height:44px"><div style="width:22px;height:3px;border-radius:2px;background:transparent"></div><span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.62)">Bu Ay</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:7px;min-height:44px"><div style="width:22px;height:3px;border-radius:2px;background:#C8102E"></div><span style="font-size:11px;font-weight:600;color:#fff">Klasikler</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:7px;min-height:44px"><div style="width:22px;height:3px;border-radius:2px;background:transparent"></div><span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.62)">Kendin Yap</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:7px;min-height:44px;position:relative"><div style="width:22px;height:3px;border-radius:2px;background:transparent"></div><span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.62)">Sepet</span>
+<sc-if value="{{ hasCart }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;top:-2px;right:24px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#C8102E;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ cartCount }}</div></sc-if>
+</div>
+</div>
+
+</div>
+</x-import>
+</div>
+</div>
+
+<div class="dv-opt" id="2b">
+<div class="dv-olabel"><a class="dv-oid" href="#2b">2b</a>Kendin Yap — 4 adım, canlı bardak, canlı fiyat, uyarı</div>
+<div class="dv-card">
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" width="{{ 402 }}" height="{{ 874 }}" hint-size="402px,874px">
+<div style="height:874px;display:flex;flex-direction:column;background:#0A0A0A;font-family:Barlow,system-ui,sans-serif;position:relative;overflow:hidden">
+
+<div class="by-scroll" style="flex:1;overflow-y:auto;scrollbar-width:none;padding:64px 0 16px">
+
+<div style="padding:16px 24px 0;display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
+<div>
+<span style="font-family:'Caveat Brush',cursive;font-size:22px;color:#C8102E;line-height:1">senin</span>
+<h1 style="margin:2px 0 0;font-family:'Rubik Dirt',system-ui;font-size:32px;line-height:1;color:#fff;text-transform:uppercase">Kendin Yap</h1>
+</div>
+<div style="display:flex;gap:6px;margin-bottom:6px">
+<sc-for list="{{ stepDots }}" as="dot" hint-placeholder-count="4">
+<button onClick="{{ dot.onGo }}" style="width:44px;height:44px;border-radius:12px;border:none;background:{{ dot.bg }};color:{{ dot.color }};font-family:'Barlow Condensed',Barlow;font-size:17px;font-weight:700;cursor:pointer">{{ dot.n }}</button>
+</sc-for>
+</div>
+</div>
+
+<div style="margin:20px 24px 0;padding:20px;border-radius:20px;background:#0F0F0F;border:1px solid rgba(255,255,255,.07);display:flex;gap:20px;align-items:center;position:relative;overflow:hidden">
+<div style="position:absolute;top:0;right:0;width:72px;height:3px;background:#C8102E"></div>
+<div style="position:absolute;top:0;right:0;width:3px;height:72px;background:#C8102E"></div>
+<div style="position:absolute;top:14px;right:14px;width:40px;height:3px;background:rgba(200,16,46,.7)"></div>
+<div style="position:absolute;top:14px;right:14px;width:3px;height:40px;background:rgba(200,16,46,.7)"></div>
+
+<div style="width:96px;height:176px;flex:none;position:relative;display:flex;flex-direction:column;justify-content:flex-end;border-radius:6px 6px 22px 22px;border:2px solid rgba(255,255,255,.28);border-top:none;overflow:hidden;background:rgba(255,255,255,.03)">
+<sc-if value="{{ glassEmpty }}" hint-placeholder-val="{{ true }}">
+<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:ui-monospace,Menlo,monospace;font-size:9px;color:rgba(255,255,255,.35);text-align:center;line-height:1.5">boş<br>bardak</div>
+</sc-if>
+<sc-for list="{{ glassLayers }}" as="layer" hint-placeholder-count="0">
+<div style="height:{{ layer.h }}px;background:{{ layer.c }};opacity:.9;transition:height .3s ease"></div>
+</sc-for>
+<sc-if value="{{ iceVisible }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;bottom:40px;left:18px;width:26px;height:26px;background:rgba(255,255,255,.34);border-radius:5px;transform:rotate(12deg)"></div>
+</sc-if>
+</div>
+
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:10px">
+<div><div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:600">Baz</div><div style="font-size:15px;color:#fff;font-weight:600">{{ baseLabel }}</div></div>
+<div><div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:600">Likör</div><div style="font-size:14px;color:rgba(255,255,255,.8)">{{ modLabel }}</div></div>
+<div><div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:600">Mixer</div><div style="font-size:14px;color:rgba(255,255,255,.8)">{{ mixerLabel }}</div></div>
+<div><div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:600">Süsleme &amp; buz</div><div style="font-size:14px;color:rgba(255,255,255,.8)">{{ garnishLabel }}</div></div>
+</div>
+</div>
+
+<sc-if value="{{ diyWarn }}" hint-placeholder-val="{{ false }}">
+<div style="margin:16px 24px 0;padding:14px 16px;border-radius:12px;background:rgba(212,175,122,.1);border:1px solid rgba(212,175,122,.4);display:flex;gap:12px;align-items:flex-start">
+<div style="width:18px;height:18px;flex:none;border-radius:9px;border:2px solid #D4AF7A;margin-top:1px"></div>
+<span style="font-size:13px;line-height:1.4;color:#D4AF7A">{{ diyWarn }}</span>
+</div>
+</sc-if>
+
+<div style="padding:32px 24px 8px"><div style="display:flex;align-items:baseline;gap:10px"><span style="font-family:'Barlow Condensed',Barlow;font-size:13px;font-weight:700;color:#C8102E;letter-spacing:.14em">01</span><h3 style="margin:0;font-size:16px;font-weight:700;color:#fff">Baz alkol</h3></div><p style="margin:4px 0 0;font-size:12.5px;color:rgba(255,255,255,.55)">Tek seçim · fiyat buradan başlar</p></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 24px 0">
+<sc-for list="{{ stepBases }}" as="opt" hint-placeholder-count="6">
+<button onClick="{{ opt.onSelect }}" style="min-height:56px;padding:10px 14px;border-radius:14px;background:{{ opt.bg }};border:1px solid {{ opt.border }};color:{{ opt.color }};font-family:Barlow;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:2px">
+<span style="font-size:14.5px;font-weight:600">{{ opt.label }}</span>
+<span style="font-size:11.5px;color:{{ opt.priceColor }}">{{ opt.price }}</span>
+</button>
+</sc-for>
+</div>
+
+<div style="padding:32px 24px 8px"><div style="display:flex;align-items:baseline;gap:10px"><span style="font-family:'Barlow Condensed',Barlow;font-size:13px;font-weight:700;color:#C8102E;letter-spacing:.14em">02</span><h3 style="margin:0;font-size:16px;font-weight:700;color:#fff">Likör / modifier</h3></div><p style="margin:4px 0 0;font-size:12.5px;color:rgba(255,255,255,.55)">{{ modsHint }}</p></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 24px 0">
+<sc-for list="{{ stepMods }}" as="opt" hint-placeholder-count="4">
+<button onClick="{{ opt.onSelect }}" style="min-height:56px;padding:10px 14px;border-radius:14px;background:{{ opt.bg }};border:1px solid {{ opt.border }};color:{{ opt.color }};font-family:Barlow;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:2px">
+<span style="font-size:14.5px;font-weight:600">{{ opt.label }}</span>
+<span style="font-size:11.5px;color:{{ opt.priceColor }}">{{ opt.price }}</span>
+</button>
+</sc-for>
+</div>
+
+<div style="padding:32px 24px 8px"><div style="display:flex;align-items:baseline;gap:10px"><span style="font-family:'Barlow Condensed',Barlow;font-size:13px;font-weight:700;color:#C8102E;letter-spacing:.14em">03</span><h3 style="margin:0;font-size:16px;font-weight:700;color:#fff">Mixer</h3></div><p style="margin:4px 0 0;font-size:12.5px;color:rgba(255,255,255,.55)">Uyumsuz eşleşmeler altın renkte işaretlenir</p></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 24px 0">
+<sc-for list="{{ stepMixers }}" as="opt" hint-placeholder-count="6">
+<button onClick="{{ opt.onSelect }}" style="min-height:56px;padding:10px 14px;border-radius:14px;background:{{ opt.bg }};border:1px solid {{ opt.border }};color:{{ opt.color }};font-family:Barlow;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:2px">
+<span style="font-size:14.5px;font-weight:600">{{ opt.label }}</span>
+<span style="font-size:11.5px;color:{{ opt.priceColor }}">{{ opt.price }}</span>
+</button>
+</sc-for>
+</div>
+
+<div style="padding:32px 24px 8px"><div style="display:flex;align-items:baseline;gap:10px"><span style="font-family:'Barlow Condensed',Barlow;font-size:13px;font-weight:700;color:#C8102E;letter-spacing:.14em">04</span><h3 style="margin:0;font-size:16px;font-weight:700;color:#fff">Süsleme &amp; buz</h3></div><p style="margin:4px 0 0;font-size:12.5px;color:rgba(255,255,255,.55)">Birden fazla seçebilirsin</p></div>
+<div style="display:flex;flex-wrap:wrap;gap:8px;padding:12px 24px 0">
+<sc-for list="{{ stepGarnish }}" as="opt" hint-placeholder-count="6">
+<button onClick="{{ opt.onSelect }}" style="min-height:44px;padding:0 16px;border-radius:22px;background:{{ opt.bg }};border:1px solid {{ opt.border }};color:{{ opt.color }};font-family:Barlow;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px">
+<span>{{ opt.label }}</span>
+<span style="font-size:11.5px;color:{{ opt.priceColor }}">{{ opt.price }}</span>
+</button>
+</sc-for>
+</div>
+
+<div style="margin:32px 24px 0;padding:18px 20px;border-radius:16px;background:#0F0F0F;border:1px solid rgba(255,255,255,.07)">
+<div style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);font-weight:600;margin-bottom:10px">Tarifine isim ver</div>
+<div style="display:flex;gap:10px;align-items:center">
+<input value="{{ diyName }}" onChange="{{ setDiyName }}" placeholder="Tarifim" style="flex:1;min-width:0;height:48px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:#141414;color:#fff;font-family:Barlow;font-size:15px;padding:0 14px;outline:none">
+<button onClick="{{ saveRecipe }}" style="height:48px;padding:0 18px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;font-family:Barlow;font-size:14px;font-weight:600;cursor:pointer;flex:none">Kaydet</button>
+</div>
+</div>
+<div style="height:16px"></div>
+</div>
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:24px;right:24px;bottom:184px;padding:14px 18px;border-radius:14px;background:#C8102E;color:#fff;font-size:14px;font-weight:600;z-index:40;animation:byToast .22s ease-out">{{ toast }}</div>
+</sc-if>
+
+<div style="flex:none;padding:14px 24px 16px;border-top:1px solid rgba(255,255,255,.08);background:rgba(10,10,10,.95);display:flex;align-items:center;gap:16px">
+<div>
+<div style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);font-weight:600">Toplam</div>
+<div style="font-family:'Barlow Condensed',Barlow;font-size:30px;font-weight:700;color:#fff;line-height:1.05">{{ diyTotal }}</div>
+</div>
+<button onClick="{{ addDiy }}" style="flex:1;height:56px;border:none;border-radius:16px;background:{{ diyBtnBg }};color:{{ diyBtnColor }};font-family:Barlow;font-size:16px;font-weight:600;cursor:pointer">{{ diyBtnLabel }}</button>
+</div>
+
+<div style="flex:none;height:72px;border-top:1px solid rgba(255,255,255,.08);background:rgba(10,10,10,.92);display:grid;grid-template-columns:repeat(4,1fr);align-items:start;padding-top:8px">
+<div style="display:flex;flex-direction:column;align-items:center;gap:6px;min-height:44px"><div style="width:22px;height:3px;border-radius:2px;background:transparent"></div><span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.62)">Bu Ay</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:6px;min-height:44px"><div style="width:22px;height:3px;border-radius:2px;background:transparent"></div><span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.62)">Klasikler</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:6px;min-height:44px"><div style="width:22px;height:3px;border-radius:2px;background:#C8102E"></div><span style="font-size:11px;font-weight:600;color:#fff">Kendin Yap</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:6px;min-height:44px;position:relative"><div style="width:22px;height:3px;border-radius:2px;background:transparent"></div><span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.62)">Sepet</span>
+<sc-if value="{{ hasCart }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;top:-2px;right:24px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#C8102E;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ cartCount }}</div></sc-if>
+</div>
+</div>
+
+</div>
+</x-import>
+</div>
+</div>
+
+<div class="dv-opt" id="2c">
+<div class="dv-olabel"><a class="dv-oid" href="#2c">2c</a>Sepet &amp; Ödeme — 18+ kapısı, ödeme sheet’i</div>
+<div class="dv-card">
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" width="{{ 402 }}" height="{{ 874 }}" hint-size="402px,874px">
+<div style="height:874px;display:flex;flex-direction:column;background:#0A0A0A;font-family:Barlow,system-ui,sans-serif;position:relative;overflow:hidden">
+
+<div class="by-scroll" style="flex:1;overflow-y:auto;scrollbar-width:none;padding:64px 0 16px">
+<div style="padding:16px 24px 0">
+<div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:600;margin-bottom:8px">{{ cartCountBig }} · {{ table }}</div>
+<h1 style="margin:0;font-family:'Rubik Dirt',system-ui;font-size:34px;line-height:1;color:#fff;text-transform:uppercase">Sepet</h1>
+</div>
+
+<div style="margin-top:24px">
+<sc-for list="{{ cartRows }}" as="row" hint-placeholder-count="3">
+<div style="padding:18px 24px;border-top:1px solid rgba(255,255,255,.06);display:flex;gap:16px;align-items:flex-start">
+<div style="width:56px;height:56px;flex:none;border-radius:12px;background:repeating-linear-gradient(135deg,#171717 0 7px,#1e1e1e 7px 14px)"></div>
+<div style="flex:1;min-width:0">
+<div style="font-family:'Barlow Condensed',Barlow;font-size:20px;font-weight:600;color:{{ row.nameColor }};text-transform:uppercase">{{ row.name }}</div>
+<div style="font-size:12.5px;color:rgba(255,255,255,.6);margin-top:2px">{{ row.ing }}</div>
+<div style="display:flex;align-items:center;gap:14px;margin-top:12px">
+<div style="display:flex;align-items:center;gap:2px;border:1px solid rgba(255,255,255,.14);border-radius:12px;overflow:hidden">
+<button onClick="{{ row.dec }}" style="width:44px;height:44px;border:none;background:transparent;color:#fff;font-size:18px;cursor:pointer">−</button>
+<span style="min-width:22px;text-align:center;font-size:15px;font-weight:600;color:#fff">{{ row.qty }}</span>
+<button onClick="{{ row.inc }}" style="width:44px;height:44px;border:none;background:transparent;color:#fff;font-size:18px;cursor:pointer">+</button>
+</div>
+<span style="font-size:13px;color:#C8102E;font-weight:600">{{ row.editLabel }}</span>
+</div>
+</div>
+<div style="text-align:right;flex:none">
+<div style="font-family:'Barlow Condensed',Barlow;font-size:20px;font-weight:700;color:#fff">{{ row.line }}</div>
+<div style="font-size:11.5px;color:rgba(255,255,255,.5);margin-top:2px">{{ row.unit }} / adet</div>
+</div>
+</div>
+</sc-for>
+</div>
+
+<div style="margin:28px 24px 0;padding:18px 20px;border-radius:16px;background:#0F0F0F;border:1px solid rgba(255,255,255,.07)">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+<div><div style="font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);font-weight:600">Masa</div><div style="font-size:16px;color:#fff;font-weight:600;margin-top:2px">{{ table }}</div></div>
+<span style="font-size:13px;font-weight:600;color:#C8102E">Değiştir</span>
+</div>
+<div style="display:flex;gap:8px">
+<button onClick="{{ setServis }}" style="flex:1;min-height:48px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:#141414;color:#fff;font-family:Barlow;font-size:14px;font-weight:600;cursor:pointer">Masaya servis</button>
+<button onClick="{{ setBar }}" style="flex:1;min-height:48px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:#141414;color:#fff;font-family:Barlow;font-size:14px;font-weight:600;cursor:pointer">Bardan al</button>
+</div>
+<div style="margin-top:10px;font-size:12.5px;color:rgba(255,255,255,.6)">Seçili: {{ mode }}</div>
+</div>
+
+<div style="margin:20px 24px 0;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;justify-content:space-between;font-size:14.5px;color:rgba(255,255,255,.7)"><span>Ara toplam</span><span style="color:#fff;font-weight:600">{{ subTotal }}</span></div>
+<div style="display:flex;justify-content:space-between;font-size:14.5px;color:rgba(255,255,255,.7)"><span>Servis</span><span style="color:#fff;font-weight:600">{{ serviceFee }}</span></div>
+<div style="height:1px;background:rgba(255,255,255,.08);margin:4px 0"></div>
+<div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:600">Toplam</span><span style="font-family:'Barlow Condensed',Barlow;font-size:32px;font-weight:700;color:#fff">{{ grandTotal }}</span></div>
+</div>
+<p style="margin:24px 24px 0;font-family:'Caveat Brush',cursive;font-size:16px;color:rgba(255,255,255,.22)">“Wok this way.”</p>
+<div style="height:8px"></div>
+</div>
+
+<div style="flex:none;padding:14px 24px 18px;border-top:1px solid rgba(255,255,255,.08);background:rgba(10,10,10,.95)">
+<button onClick="{{ openGate }}" style="width:100%;height:56px;border:none;border-radius:16px;background:#C8102E;color:#fff;font-family:Barlow;font-size:16px;font-weight:600;cursor:pointer">Ödemeye geç · {{ grandTotal }}</button>
+</div>
+
+<sc-if value="{{ gateAge }}" hint-placeholder-val="{{ true }}">
+<div style="position:absolute;inset:0;z-index:35;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;padding:32px">
+<div style="background:#101010;border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:28px 24px;position:relative;overflow:hidden">
+<div style="position:absolute;top:0;right:0;width:64px;height:3px;background:#C8102E"></div>
+<div style="position:absolute;top:0;right:0;width:3px;height:64px;background:#C8102E"></div>
+<div style="font-family:'Rubik Dirt',system-ui;font-size:44px;color:#fff;line-height:1;margin-bottom:12px">18+</div>
+<p style="margin:0 0 6px;font-size:16px;font-weight:600;color:#fff">Yaş onayı gerekli</p>
+<p style="margin:0 0 22px;font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.62)">Sepetinde alkollü ürün var. 18 yaşından büyük olduğunu onaylıyor musun? Servis sırasında kimlik istenebilir.</p>
+<div style="display:flex;gap:10px">
+<button onClick="{{ closeGate }}" style="flex:1;height:50px;border-radius:13px;border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;font-family:Barlow;font-size:15px;font-weight:600;cursor:pointer">Vazgeç</button>
+<button onClick="{{ confirmAge }}" style="flex:1;height:50px;border-radius:13px;border:none;background:#C8102E;color:#fff;font-family:Barlow;font-size:15px;font-weight:600;cursor:pointer">18+ onaylıyorum</button>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ gatePay }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:36;background:rgba(0,0,0,.6);display:flex;align-items:flex-end">
+<div style="width:100%;background:#0F0F0F;border-top:1px solid rgba(255,255,255,.1);border-radius:24px 24px 0 0;padding:14px 24px 28px;animation:byToast .24s ease-out">
+<div style="display:flex;justify-content:center;margin-bottom:18px"><div style="width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,.22)"></div></div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px">
+<span style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:600">Ödeme</span>
+<span style="font-family:'Barlow Condensed',Barlow;font-size:30px;font-weight:700;color:#fff">{{ grandTotal }}</span>
+</div>
+<div style="display:flex;align-items:center;gap:14px;padding:16px;border-radius:14px;background:#141414;border:1px solid rgba(200,16,46,.45);margin-bottom:10px">
+<div style="width:40px;height:26px;border-radius:5px;background:linear-gradient(120deg,#2b2b2b,#3a3a3a);flex:none"></div>
+<div style="flex:1;min-width:0"><div style="font-size:15px;color:#fff;font-weight:600">•••• 4417</div><div style="font-size:12.5px;color:rgba(255,255,255,.6);margin-top:1px">Kayıtlı kart · Visa</div></div>
+<div style="width:20px;height:20px;border-radius:10px;background:#C8102E;flex:none"></div>
+</div>
+<div style="display:flex;align-items:center;gap:14px;padding:16px;border-radius:14px;background:#141414;border:1px solid rgba(255,255,255,.1);margin-bottom:18px">
+<div style="width:40px;height:26px;border-radius:5px;border:1px solid rgba(255,255,255,.18);flex:none"></div>
+<div style="flex:1;min-width:0"><div style="font-size:15px;color:#fff;font-weight:600">Yeni kart ekle</div></div>
+<span style="font-size:20px;color:rgba(255,255,255,.5)">+</span>
+</div>
+<button style="width:100%;height:54px;border:none;border-radius:14px;background:#fff;color:#000;font-family:-apple-system,system-ui;font-size:17px;font-weight:600;cursor:pointer;margin-bottom:10px"> Pay ile öde</button>
+<button onClick="{{ payNow }}" style="width:100%;height:56px;border:none;border-radius:16px;background:#C8102E;color:#fff;font-family:Barlow;font-size:16px;font-weight:600;cursor:pointer">Öde · {{ grandTotal }}</button>
+<button onClick="{{ closeGate }}" style="width:100%;height:48px;margin-top:6px;border:none;background:transparent;color:rgba(255,255,255,.62);font-family:Barlow;font-size:14px;font-weight:500;cursor:pointer">Kapat</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:24px;right:24px;bottom:108px;padding:14px 18px;border-radius:14px;background:#C8102E;color:#fff;font-size:14px;font-weight:600;z-index:40;animation:byToast .22s ease-out">{{ toast }}</div>
+</sc-if>
+
+</div>
+</x-import>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Sırada: “2b’de adım adım tek ekran akışı yap (wizard)” · “sepette tarif düzenleme sheet’ini ekle” · “klasiklerde filtre çipleri çalışsın”</p>
+</section>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Ekran 1 — Bu Ayın Kokteylleri</span></div>
+<p class="dv-note">Sistem: arka plan <b>#0A0A0A</b>, birincil <b>#C8102E</b>, premium vurgu <b>#D4AF7A</b> (sadece 620₺ mevsim özeli). Tek grunge display fontu (<b>Rubik Dirt</b>) yalnızca ekran başlığı + kokteyl adlarında; gövde <b>Barlow</b>; tek fırça-script kelime ekran başına (<b>Caveat Brush</b>). Kırmızı kafes motifi yalnızca kahraman kartın sağ üst köşesinde. 8pt grid, splatter dokusu %5.</p>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Fotoğraf kahraman — tam taşan görsel, köşede kafes, fiyat + Ekle üstte</div>
+<div class="dv-card">
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" width="{{ 402 }}" height="{{ 874 }}" hint-size="402px,874px">
+<div style="height:874px;display:flex;flex-direction:column;background:#0A0A0A;font-family:Barlow,system-ui,sans-serif;position:relative;overflow:hidden">
+
+<div class="by-scroll" style="flex:1;overflow-y:auto;scrollbar-width:none;padding:64px 0 24px">
+
+<div style="padding:16px 24px 24px;display:flex;align-items:flex-end;justify-content:space-between;gap:16px">
+<div>
+<div style="display:flex;align-items:baseline;gap:6px;margin-bottom:6px">
+<span style="font-family:'Caveat Brush',cursive;font-size:22px;color:#C8102E;line-height:1">bu ayın</span>
+<span style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:600">imza serisi</span>
+</div>
+<h1 style="margin:0;font-family:'Rubik Dirt',system-ui;font-size:34px;line-height:.98;color:#fff;letter-spacing:.01em;text-transform:uppercase">Bu Ayın<br>Kokteylleri</h1>
+</div>
+<div style="width:44px;height:44px;border-radius:22px;border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;flex:none;margin-bottom:4px">
+<div style="width:14px;height:14px;border:2px solid rgba(255,255,255,.55);border-radius:50%"></div>
+</div>
+</div>
+
+<div style="margin:0 24px;border-radius:20px;overflow:hidden;position:relative;background:#121212;border:1px solid rgba(255,255,255,.07)">
+<div style="position:absolute;inset:0;opacity:.05;background:radial-gradient(circle at 18% 22%,#C8102E 0 8px,transparent 9px),radial-gradient(circle at 74% 12%,#C8102E 0 14px,transparent 15px),radial-gradient(circle at 42% 68%,#C8102E 0 22px,transparent 23px),radial-gradient(circle at 88% 78%,#C8102E 0 10px,transparent 11px);pointer-events:none"></div>
+<div style="height:300px;position:relative;background:repeating-linear-gradient(135deg,#171717 0 9px,#1e1e1e 9px 18px);display:flex;align-items:center;justify-content:center">
+<span style="font-family:ui-monospace,Menlo,monospace;font-size:10.5px;letter-spacing:.1em;color:rgba(255,255,255,.3);text-transform:uppercase">kokteyl fotoğrafı 3:4</span>
+<div style="position:absolute;inset:0;background:linear-gradient(to top,#121212 0,rgba(18,18,18,.65) 34%,transparent 72%)"></div>
+<div style="position:absolute;top:0;right:0;width:96px;height:3px;background:#C8102E"></div>
+<div style="position:absolute;top:0;right:0;width:3px;height:96px;background:#C8102E"></div>
+<div style="position:absolute;top:16px;right:16px;width:60px;height:3px;background:#C8102E"></div>
+<div style="position:absolute;top:16px;right:16px;width:3px;height:60px;background:#C8102E"></div>
+<div style="position:absolute;top:32px;right:32px;width:28px;height:3px;background:#C8102E"></div>
+<div style="position:absolute;top:24px;left:24px;padding:6px 10px;background:#C8102E;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#fff">Eylül imzası</div>
+</div>
+<div style="padding:0 24px 24px;position:relative">
+<h2 style="margin:-16px 0 8px;font-family:'Rubik Dirt',system-ui;font-size:32px;line-height:1;color:#fff;text-transform:uppercase">York Sunrise</h2>
+<p style="margin:0 0 20px;font-size:14.5px;line-height:1.45;color:rgba(255,255,255,.68);max-width:280px;text-wrap:pretty">Cin, yuzu, nar şerbeti ve bir tutam Sichuan biberi — şafak gibi kızıl, akşam gibi uzun.</p>
+<div style="display:flex;align-items:center;gap:16px">
+<span style="font-family:'Barlow Condensed',Barlow;font-size:30px;font-weight:700;color:#fff;letter-spacing:.01em">575₺</span>
+<button onClick="{{ addHeroA }}" style="flex:1;height:52px;border:none;border-radius:14px;background:{{ heroAbg }};color:#fff;font-family:Barlow;font-size:16px;font-weight:600;letter-spacing:.02em;cursor:pointer;transition:background .18s" style-hover="filter:brightness(1.08)">{{ heroAlabel }}</button>
+</div>
+</div>
+</div>
+
+<div style="display:flex;align-items:baseline;justify-content:space-between;padding:36px 24px 14px">
+<h3 style="margin:0;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5)">Mevsimlikler</h3>
+<span style="font-size:12.5px;color:#C8102E;font-weight:600">Tümü</span>
+</div>
+
+<div class="by-scroll" style="display:flex;gap:16px;overflow-x:auto;scrollbar-width:none;padding:0 24px 8px;scroll-snap-type:x mandatory">
+
+<div style="flex:none;width:216px;scroll-snap-align:start;background:#121212;border:1px solid rgba(255,255,255,.07);border-radius:16px;overflow:hidden">
+<div style="height:150px;background:repeating-linear-gradient(135deg,#171717 0 9px,#1e1e1e 9px 18px);display:flex;align-items:center;justify-content:center">
+<span style="font-family:ui-monospace,Menlo,monospace;font-size:9.5px;letter-spacing:.08em;color:rgba(255,255,255,.28)">oak jungle</span>
+</div>
+<div style="padding:16px">
+<h4 style="margin:0 0 6px;font-family:'Rubik Dirt',system-ui;font-size:18px;line-height:1.05;color:#fff;text-transform:uppercase">Oak Jungle</h4>
+<p style="margin:0 0 16px;font-size:12.5px;line-height:1.35;color:rgba(255,255,255,.6)">Viski, pandan, meşe dumanı</p>
+<div style="display:flex;align-items:center;justify-content:space-between">
+<span style="font-family:'Barlow Condensed',Barlow;font-size:21px;font-weight:700;color:#fff">575₺</span>
+<button onClick="{{ addOakA }}" style="height:44px;padding:0 18px;border:1px solid {{ oakAborder }};background:{{ oakAbg }};color:#fff;border-radius:10px;font-family:Barlow;font-size:13px;font-weight:600;cursor:pointer">{{ oakAlabel }}</button>
+</div>
+</div>
+</div>
+
+<div style="flex:none;width:216px;scroll-snap-align:start;background:#121212;border:1px solid rgba(255,255,255,.07);border-radius:16px;overflow:hidden">
+<div style="height:150px;background:repeating-linear-gradient(135deg,#171717 0 9px,#1e1e1e 9px 18px);display:flex;align-items:center;justify-content:center">
+<span style="font-family:ui-monospace,Menlo,monospace;font-size:9.5px;letter-spacing:.08em;color:rgba(255,255,255,.28)">espresso martini</span>
+</div>
+<div style="padding:16px">
+<h4 style="margin:0 0 6px;font-family:'Rubik Dirt',system-ui;font-size:18px;line-height:1.05;color:#fff;text-transform:uppercase">Espresso Martini</h4>
+<p style="margin:0 0 16px;font-size:12.5px;line-height:1.35;color:rgba(255,255,255,.6)">Vodka, espresso, kahve likörü</p>
+<div style="display:flex;align-items:center;justify-content:space-between">
+<span style="font-family:'Barlow Condensed',Barlow;font-size:21px;font-weight:700;color:#fff">580₺</span>
+<button onClick="{{ addEspA }}" style="height:44px;padding:0 18px;border:1px solid {{ espAborder }};background:{{ espAbg }};color:#fff;border-radius:10px;font-family:Barlow;font-size:13px;font-weight:600;cursor:pointer">{{ espAlabel }}</button>
+</div>
+</div>
+</div>
+
+<div style="flex:none;width:216px;scroll-snap-align:start;background:#121212;border:1px solid rgba(212,175,122,.32);border-radius:16px;overflow:hidden">
+<div style="height:150px;background:repeating-linear-gradient(135deg,#1a1713 0 9px,#211d17 9px 18px);display:flex;align-items:center;justify-content:center;position:relative">
+<span style="font-family:ui-monospace,Menlo,monospace;font-size:9.5px;letter-spacing:.08em;color:rgba(212,175,122,.4)">altın muson</span>
+<div style="position:absolute;top:12px;left:12px;padding:4px 8px;border:1px solid rgba(212,175,122,.5);border-radius:3px;font-size:9px;font-weight:700;letter-spacing:.14em;color:#D4AF7A">PREMIUM</div>
+</div>
+<div style="padding:16px">
+<h4 style="margin:0 0 6px;font-family:'Rubik Dirt',system-ui;font-size:18px;line-height:1.05;color:#D4AF7A;text-transform:uppercase">Altın Muson</h4>
+<p style="margin:0 0 16px;font-size:12.5px;line-height:1.35;color:rgba(255,255,255,.6)">Rom, tamarind, altın varak</p>
+<div style="display:flex;align-items:center;justify-content:space-between">
+<span style="font-family:'Barlow Condensed',Barlow;font-size:21px;font-weight:700;color:#D4AF7A">620₺</span>
+<button onClick="{{ addGoldA }}" style="height:44px;padding:0 18px;border:1px solid rgba(212,175,122,.45);background:{{ goldAbg }};color:#D4AF7A;border-radius:10px;font-family:Barlow;font-size:13px;font-weight:600;cursor:pointer">{{ goldAlabel }}</button>
+</div>
+</div>
+</div>
+
+</div>
+
+<p style="margin:32px 24px 0;font-family:'Caveat Brush',cursive;font-size:17px;color:rgba(255,255,255,.22);line-height:1.2">“We will wok you.”</p>
+</div>
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:24px;right:24px;bottom:104px;padding:14px 18px;border-radius:14px;background:#C8102E;color:#fff;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:space-between;animation:byToast .22s ease-out;z-index:40">
+<span>{{ toast }}</span>
+<span style="font-size:12.5px;opacity:.75;font-weight:600">Sepete git</span>
+</div>
+</sc-if>
+
+<div style="flex:none;height:88px;border-top:1px solid rgba(255,255,255,.08);background:rgba(10,10,10,.92);backdrop-filter:blur(18px);display:grid;grid-template-columns:repeat(4,1fr);align-items:start;padding-top:10px">
+<div style="display:flex;flex-direction:column;align-items:center;gap:7px;min-height:44px;justify-content:flex-start">
+<div style="width:22px;height:3px;border-radius:2px;background:#C8102E"></div>
+<span style="font-size:11px;font-weight:600;color:#fff;letter-spacing:.02em">Bu Ay</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:7px;min-height:44px">
+<div style="width:22px;height:3px;border-radius:2px;background:transparent"></div>
+<span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.62)">Klasikler</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:7px;min-height:44px">
+<div style="width:22px;height:3px;border-radius:2px;background:transparent"></div>
+<span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.62)">Kendin Yap</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:7px;min-height:44px;position:relative">
+<div style="width:22px;height:3px;border-radius:2px;background:transparent"></div>
+<span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.62)">Sepet</span>
+<sc-if value="{{ hasCart }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;top:-2px;right:24px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#C8102E;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ cartCount }}</div>
+</sc-if>
+</div>
+</div>
+
+</div>
+</x-import>
+</div>
+</div>
+
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Tipografik kahraman — görsel yok, dev isim + kafes çerçeveli künye, liste olarak mevsimlikler</div>
+<div class="dv-card">
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" width="{{ 402 }}" height="{{ 874 }}" hint-size="402px,874px">
+<div style="height:874px;display:flex;flex-direction:column;background:#0A0A0A;font-family:Barlow,system-ui,sans-serif;position:relative;overflow:hidden">
+
+<div class="by-scroll" style="flex:1;overflow-y:auto;scrollbar-width:none;padding:64px 0 24px">
+
+<div style="padding:16px 24px 20px">
+<div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:600;margin-bottom:8px">Bilkent York · Eylül</div>
+<h1 style="margin:0;font-family:'Rubik Dirt',system-ui;font-size:30px;line-height:1;color:#fff;text-transform:uppercase">Bu Ayın Kokteylleri</h1>
+</div>
+
+<div style="margin:0 24px;padding:28px 24px 24px;position:relative;background:linear-gradient(160deg,#17090c 0%,#0f0f0f 58%);border-radius:20px;overflow:hidden">
+<div style="position:absolute;inset:0;opacity:.05;background:radial-gradient(circle at 76% 18%,#C8102E 0 26px,transparent 27px),radial-gradient(circle at 24% 84%,#C8102E 0 18px,transparent 19px),radial-gradient(circle at 54% 44%,#C8102E 0 34px,transparent 35px);pointer-events:none"></div>
+<div style="position:absolute;top:0;right:0;width:104px;height:3px;background:#C8102E"></div>
+<div style="position:absolute;top:0;right:0;width:3px;height:104px;background:#C8102E"></div>
+<div style="position:absolute;top:18px;right:18px;width:64px;height:3px;background:rgba(200,16,46,.75)"></div>
+<div style="position:absolute;top:18px;right:18px;width:3px;height:64px;background:rgba(200,16,46,.75)"></div>
+<div style="position:absolute;top:36px;right:36px;width:28px;height:3px;background:rgba(200,16,46,.5)"></div>
+<div style="position:relative">
+<span style="font-family:'Caveat Brush',cursive;font-size:24px;color:#C8102E;line-height:1">imza</span>
+<h2 style="margin:6px 0 0;font-family:'Rubik Dirt',system-ui;font-size:46px;line-height:.92;color:#fff;text-transform:uppercase;max-width:250px">York Sunrise</h2>
+<div style="height:1px;background:rgba(255,255,255,.1);margin:22px 0 18px"></div>
+<div style="display:flex;flex-direction:column;gap:9px;margin-bottom:24px">
+<div style="display:flex;gap:12px;align-items:baseline"><span style="width:58px;flex:none;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:600">Baz</span><span style="font-size:14.5px;color:rgba(255,255,255,.82)">Cin</span></div>
+<div style="display:flex;gap:12px;align-items:baseline"><span style="width:58px;flex:none;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:600">Tat</span><span style="font-size:14.5px;color:rgba(255,255,255,.82)">Yuzu, nar şerbeti</span></div>
+<div style="display:flex;gap:12px;align-items:baseline"><span style="width:58px;flex:none;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:600">Vuruş</span><span style="font-size:14.5px;color:rgba(255,255,255,.82)">Sichuan biberi</span></div>
+</div>
+<div style="display:flex;align-items:center;gap:14px">
+<button onClick="{{ addHeroB }}" style="flex:1;height:54px;border:none;border-radius:14px;background:{{ heroBbg }};color:#fff;font-family:Barlow;font-size:16px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px">{{ heroBlabel }}</button>
+<span style="font-family:'Barlow Condensed',Barlow;font-size:32px;font-weight:700;color:#fff">575₺</span>
+</div>
+</div>
+</div>
+
+<h3 style="margin:36px 24px 4px;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5)">Ayrıca bu ay</h3>
+
+<div style="display:flex;flex-direction:column">
+<div style="display:flex;align-items:center;gap:16px;padding:18px 24px;border-bottom:1px solid rgba(255,255,255,.06)">
+<div style="width:56px;height:56px;flex:none;border-radius:12px;background:repeating-linear-gradient(135deg,#171717 0 7px,#1e1e1e 7px 14px)"></div>
+<div style="flex:1;min-width:0">
+<div style="font-family:'Barlow Condensed',Barlow;font-size:20px;font-weight:600;color:#fff;letter-spacing:.01em;text-transform:uppercase">Oak Jungle</div>
+<div style="font-size:12.5px;color:rgba(255,255,255,.6);margin-top:2px">Viski, pandan, meşe dumanı</div>
+</div>
+<span style="font-family:'Barlow Condensed',Barlow;font-size:20px;font-weight:700;color:#fff">575₺</span>
+<button onClick="{{ addOakB }}" style="width:44px;height:44px;flex:none;border-radius:12px;border:1px solid {{ oakBborder }};background:{{ oakBbg }};color:#fff;font-size:20px;font-weight:600;cursor:pointer;line-height:1">{{ oakBlabel }}</button>
+</div>
+<div style="display:flex;align-items:center;gap:16px;padding:18px 24px;border-bottom:1px solid rgba(255,255,255,.06)">
+<div style="width:56px;height:56px;flex:none;border-radius:12px;background:repeating-linear-gradient(135deg,#171717 0 7px,#1e1e1e 7px 14px)"></div>
+<div style="flex:1;min-width:0">
+<div style="font-family:'Barlow Condensed',Barlow;font-size:20px;font-weight:600;color:#fff;letter-spacing:.01em;text-transform:uppercase">Espresso Martini</div>
+<div style="font-size:12.5px;color:rgba(255,255,255,.6);margin-top:2px">Vodka, espresso, kahve likörü</div>
+</div>
+<span style="font-family:'Barlow Condensed',Barlow;font-size:20px;font-weight:700;color:#fff">580₺</span>
+<button onClick="{{ addEspB }}" style="width:44px;height:44px;flex:none;border-radius:12px;border:1px solid {{ espBborder }};background:{{ espBbg }};color:#fff;font-size:20px;font-weight:600;cursor:pointer;line-height:1">{{ espBlabel }}</button>
+</div>
+<div style="display:flex;align-items:center;gap:16px;padding:18px 24px">
+<div style="width:56px;height:56px;flex:none;border-radius:12px;background:repeating-linear-gradient(135deg,#1a1713 0 7px,#211d17 7px 14px);border:1px solid rgba(212,175,122,.28)"></div>
+<div style="flex:1;min-width:0">
+<div style="display:flex;align-items:center;gap:8px">
+<span style="font-family:'Barlow Condensed',Barlow;font-size:20px;font-weight:600;color:#D4AF7A;text-transform:uppercase">Altın Muson</span>
+<span style="font-size:9px;font-weight:700;letter-spacing:.12em;color:#D4AF7A;border:1px solid rgba(212,175,122,.45);border-radius:3px;padding:2px 5px">PREMIUM</span>
+</div>
+<div style="font-size:12.5px;color:rgba(255,255,255,.6);margin-top:2px">Rom, tamarind, altın varak</div>
+</div>
+<span style="font-family:'Barlow Condensed',Barlow;font-size:20px;font-weight:700;color:#D4AF7A">620₺</span>
+<button onClick="{{ addGoldB }}" style="width:44px;height:44px;flex:none;border-radius:12px;border:1px solid rgba(212,175,122,.45);background:{{ goldBbg }};color:#D4AF7A;font-size:20px;font-weight:600;cursor:pointer;line-height:1">{{ goldBlabel }}</button>
+</div>
+</div>
+</div>
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:24px;right:24px;bottom:104px;padding:14px 18px;border-radius:14px;background:#C8102E;color:#fff;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:space-between;animation:byToast .22s ease-out;z-index:40">
+<span>{{ toast }}</span>
+<span style="font-size:12.5px;opacity:.75;font-weight:600">Sepete git</span>
+</div>
+</sc-if>
+
+<div style="flex:none;height:88px;border-top:1px solid rgba(255,255,255,.08);background:rgba(10,10,10,.92);backdrop-filter:blur(18px);display:grid;grid-template-columns:repeat(4,1fr);align-items:start;padding-top:10px">
+<div style="display:flex;flex-direction:column;align-items:center;gap:7px;min-height:44px">
+<div style="width:22px;height:3px;border-radius:2px;background:#C8102E"></div>
+<span style="font-size:11px;font-weight:600;color:#fff">Bu Ay</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:7px;min-height:44px">
+<div style="width:22px;height:3px;border-radius:2px;background:transparent"></div>
+<span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.62)">Klasikler</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:7px;min-height:44px">
+<div style="width:22px;height:3px;border-radius:2px;background:transparent"></div>
+<span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.62)">Kendin Yap</span>
+</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:7px;min-height:44px;position:relative">
+<div style="width:22px;height:3px;border-radius:2px;background:transparent"></div>
+<span style="font-size:11px;font-weight:500;color:rgba(255,255,255,.62)">Sepet</span>
+<sc-if value="{{ hasCart }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;top:-2px;right:24px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#C8102E;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ cartCount }}</div>
+</sc-if>
+</div>
+</div>
+
+</div>
+</x-import>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Sırada: “1a ile devam, Ekran 2’yi yap” · “kahraman kartı 1b’deki künye satırlarıyla birleştir” · “kafes motifini biraz daha belirgin yap”</p>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:1060}}">
+class Component extends DCLogic {
+  state = {
+    cart: 0, added: {}, toast: '',
+    diy: { base: null, mod: null, mixer: null, garnish: [], step: 1, name: '' },
+    items: [
+      { id: 1, name: 'York Sunrise', ing: 'Cin, yuzu, nar şerbeti', price: 575, qty: 1 },
+      { id: 2, name: 'Long Island Ice Tea', ing: 'Rom, cin, tekila, vodka, kola', price: 580, qty: 2 },
+      { id: 3, name: 'Tarifim: Kızıl Yuzu', ing: 'Cin · Yuzu likörü · Tonik · Nane', price: 470, qty: 1, custom: true },
+    ],
+    detail: null, table: 'Masa 12', mode: 'Masaya servis', gate: null, aged: false,
+  };
+
+  add(key, name) {
+    clearTimeout(this._t);
+    this.setState(s => ({
+      cart: s.cart + 1,
+      added: { ...s.added, [key]: true },
+      toast: name + ' sepete eklendi',
+    }));
+    this._t = setTimeout(() => this.setState({ toast: '' }), 2200);
+  }
+  componentWillUnmount() { clearTimeout(this._t); }
+
+  // ── data ──
+  classics = [
+    ['Aperol Spritz', 'Aperol, Prosecco, maden suyu', 565],
+    ['Long Island Ice Tea', 'Rom, Cin, Tekila, Vodka, portakal likörü, kola', 580],
+    ['Texas Iced Tea', 'Rom, Cin, Tekila, Vodka, viski, kola', 595],
+    ['Margarita', 'Tekila, portakal likörü, lime', 565],
+    ['Negroni', 'Cin, Campari, kırmızı vermut', 570],
+    ['Whiskey Sour', 'Viski, limon, şeker şurubu', 585],
+    ['Piña Colada', 'Rom, ananas suyu, hindistan cevizi', 565],
+    ['Cosmopolitan', 'Vodka, portakal likörü, cranberry, lime', 565],
+    ['Cuba Libre', 'Rom, kola, lime', 565],
+  ];
+  bases = [
+    ['Cin', 320, '#dfe8ea'], ['Vodka', 310, '#e6eef2'], ['Tekila', 340, '#efe2c4'],
+    ['Rom', 315, '#c99a5e'], ['Viski', 360, '#a9682c'], ['Alkolsüz', 180, '#cfe3d2'],
+  ];
+  mods = {
+    Cin: [['Elderflower likörü', 70, '#e4dfae'], ['Yuzu likörü', 75, '#e8d35c'], ['Kırmızı vermut', 60, '#8e2f2a'], ['Aperol', 65, '#d8552a']],
+    Vodka: [['Kahve likörü', 80, '#3a2218'], ['Şeftali likörü', 65, '#e79a63'], ['Cranberry likörü', 70, '#9e2340']],
+    Tekila: [['Portakal likörü', 70, '#e08a2e'], ['Agave şurubu', 40, '#cfa657'], ['Aperol', 65, '#d8552a']],
+    Rom: [['Falernum', 65, '#c98a4a'], ['Hindistan cevizi likörü', 70, '#efe7d8'], ['Portakal likörü', 70, '#e08a2e']],
+    Viski: [['Kırmızı vermut', 60, '#8e2f2a'], ['Bal likörü', 70, '#d9a63d'], ['Amaretto', 65, '#b06a34']],
+    Alkolsüz: [['Yuzu şurubu', 45, '#e8d35c'], ['Bitki şurubu', 35, '#7fa06a'], ['Nar şerbeti', 45, '#a01f38']],
+  };
+  mixers = [
+    ['Kola', 45, '#3a2318'], ['Tonik', 45, '#e9f1f4'], ['Maden suyu', 35, '#eef5f7'],
+    ['Portakal suyu', 50, '#e79a2e'], ['Ananas suyu', 50, '#e6c85f'], ['Zencefilli gazoz', 50, '#d9b071'],
+  ];
+  garnishes = [
+    ['Lime kabuğu', 0], ['Nane dalı', 10], ['Sichuan biberi', 15],
+    ['Küp buz', 0], ['Küre buz', 20], ['Kırık buz', 0],
+  ];
+  clashes = [['Cin', 'Kola'], ['Viski', 'Tonik'], ['Kahve likörü', 'Tonik'], ['Hindistan cevizi likörü', 'Kola'], ['Aperol', 'Kola']];
+
+  pick(field, val) {
+    const d = { ...this.state.diy };
+    if (field === 'garnish') {
+      d.garnish = d.garnish.includes(val) ? d.garnish.filter(g => g !== val) : [...d.garnish, val];
+    } else {
+      d[field] = d[field] === val ? null : val;
+      if (field === 'base') d.mod = null;
+      if (d[field] && d.step < 4) d.step = { base: 2, mod: 3, mixer: 4 }[field] || d.step;
+    }
+    this.setState({ diy: d });
+  }
+
+  qty(id, delta) {
+    this.setState(s => ({
+      items: s.items.map(i => i.id === id ? { ...i, qty: Math.max(0, i.qty + delta) } : i).filter(i => i.qty > 0),
+    }));
+  }
+
+  renderVals() {
+    const a = this.state.added;
+    const on = k => !!a[k];
+    const v = {
+      cartCount: this.state.cart,
+      hasCart: this.state.cart > 0,
+      toast: this.state.toast,
+      heroAbg: on('hA') ? '#1f1f1f' : '#C8102E',
+      heroAlabel: on('hA') ? 'Eklendi ✓' : 'Ekle',
+      heroBbg: on('hB') ? '#1f1f1f' : '#C8102E',
+      heroBlabel: on('hB') ? 'Eklendi ✓' : 'Sepete Ekle',
+      addHeroA: () => this.add('hA', 'York Sunrise'),
+      addHeroB: () => this.add('hB', 'York Sunrise'),
+    };
+    const small = [
+      ['oak', 'Oak Jungle'], ['esp', 'Espresso Martini'], ['gold', 'Altın Muson'],
+    ];
+    for (const [id, name] of small) {
+      for (const suf of ['A', 'B']) {
+        const k = id + suf;
+        const gold = id === 'gold';
+        v[k + 'bg'] = on(k) ? (gold ? 'rgba(212,175,122,.16)' : '#242424') : 'transparent';
+        v[k + 'border'] = on(k) ? 'rgba(255,255,255,.22)' : 'rgba(255,255,255,.16)';
+        v[k + 'label'] = suf === 'A' ? (on(k) ? 'Eklendi' : 'Ekle') : (on(k) ? '✓' : '+');
+        v['add' + id.charAt(0).toUpperCase() + id.slice(1) + suf] = () => this.add(k, name);
+      }
+    }
+    // ── Screen 2: classics ──
+    v.classicRows = this.classics.map(([name, ing, price], i) => ({
+      name, ing, price: price + '₺',
+      onOpen: () => this.setState({ detail: { name, ing, price } }),
+      thumb: 'repeating-linear-gradient(135deg,#171717 0 7px,#1e1e1e 7px 14px)',
+    }));
+    const d = this.state.detail;
+    v.detailOpen = !!d;
+    v.dName = d ? d.name : '';
+    v.dIng = d ? d.ing : '';
+    v.dPrice = d ? d.price + '₺' : '';
+    v.closeDetail = () => this.setState({ detail: null });
+    v.addDetail = () => { const n = d.name; this.setState({ detail: null }); this.add('cl' + n, n); };
+    v.tuneDetail = () => {
+      const base = (d.ing.split(',')[0] || '').trim();
+      const known = this.bases.find(b => b[0].toLowerCase() === base.toLowerCase());
+      this.setState({ detail: null, diy: { base: known ? known[0] : 'Cin', mod: null, mixer: null, garnish: [], step: 2, name: d.name } });
+      this.add('tune' + d.name, d.name + ' → Kendin Yap');
+    };
+
+    // ── Screen 3: DIY ──
+    const y = this.state.diy;
+    const clashOf = (x1, x2) => this.clashes.some(([p, q]) => (p === x1 && q === x2) || (p === x2 && q === x1));
+    const chip = (label, price, sel, onSelect, warn) => ({
+      label, price: price ? '+' + price + '₺' : 'ücretsiz', onSelect, warn: !!warn,
+      bg: sel ? (warn ? 'rgba(212,175,122,.14)' : 'rgba(200,16,46,.16)') : '#131313',
+      border: sel ? (warn ? '#D4AF7A' : '#C8102E') : 'rgba(255,255,255,.1)',
+      color: sel ? '#fff' : 'rgba(255,255,255,.82)',
+      priceColor: warn ? '#D4AF7A' : 'rgba(255,255,255,.55)',
+    });
+    v.stepBases = this.bases.map(([n, p]) => chip(n, p, y.base === n, () => this.pick('base', n)));
+    v.stepMods = (this.mods[y.base] || this.mods.Cin).map(([n, p]) => chip(n, p, y.mod === n, () => this.pick('mod', n), y.base && clashOf(y.base, n)));
+    v.stepMixers = this.mixers.map(([n, p]) => chip(n, p, y.mixer === n, () => this.pick('mixer', n), clashOf(y.base, n) || clashOf(y.mod, n)));
+    v.stepGarnish = this.garnishes.map(([n, p]) => chip(n, p, y.garnish.includes(n), () => this.pick('garnish', n)));
+    v.baseLabel = y.base || 'seçilmedi';
+    v.modLabel = y.mod || '—';
+    v.mixerLabel = y.mixer || '—';
+    v.garnishLabel = y.garnish.length ? y.garnish.join(' · ') : '—';
+    v.modsLocked = !y.base;
+    v.modsHint = y.base ? y.base + ' ile uyumlu likörler' : 'Önce bir baz seç';
+    const priceOf = (arr, n) => { const f = arr.find(x => x[0] === n); return f ? f[1] : 0; };
+    const total = (y.base ? priceOf(this.bases, y.base) : 0)
+      + (y.mod ? priceOf(this.mods[y.base] || [], y.mod) : 0)
+      + (y.mixer ? priceOf(this.mixers, y.mixer) : 0)
+      + y.garnish.reduce((s, g) => s + priceOf(this.garnishes, g), 0);
+    v.diyTotal = total + '₺';
+    v.diyReady = !!(y.base && y.mixer);
+    v.diyBtnBg = (y.base && y.mixer) ? '#C8102E' : '#1c1c1c';
+    v.diyBtnColor = (y.base && y.mixer) ? '#fff' : 'rgba(255,255,255,.4)';
+    v.diyBtnLabel = (y.base && y.mixer) ? 'Sepete Ekle' : 'Baz ve mixer seç';
+    const warnPair = [[y.base, y.mixer], [y.mod, y.mixer], [y.base, y.mod]].find(([p, q]) => p && q && clashOf(p, q));
+    v.diyWarn = warnPair ? warnPair[0] + ' + ' + warnPair[1] + ': bu kombinasyon önerilmez, ama sen bilirsin.' : '';
+    v.diyName = y.name;
+    v.setDiyName = e => this.setState({ diy: { ...this.state.diy, name: e.target.value } });
+    v.saveRecipe = () => this.add('recipe', (y.name || 'Tarifim') + ' kaydedildi');
+    v.addDiy = () => { if (y.base && y.mixer) this.add('diy' + Date.now(), (y.name || 'Tarifim') + ' · ' + total + '₺'); };
+    const layerColor = (arr, n) => { const f = arr.find(x => x[0] === n); return f && f[2] ? f[2] : null; };
+    v.glassLayers = [
+      y.mixer ? { h: 96, c: layerColor(this.mixers, y.mixer), k: 'mx' } : null,
+      y.mod ? { h: 44, c: layerColor(this.mods[y.base] || [], y.mod), k: 'md' } : null,
+      y.base ? { h: 62, c: layerColor(this.bases, y.base), k: 'bs' } : null,
+    ].filter(Boolean);
+    v.glassEmpty = v.glassLayers.length === 0;
+    v.iceVisible = y.garnish.some(g => g.includes('buz'));
+    v.stepDots = [1, 2, 3, 4].map(n => ({
+      n: String(n),
+      bg: y.step === n ? '#C8102E' : (n < y.step ? 'rgba(200,16,46,.3)' : '#1c1c1c'),
+      color: y.step >= n ? '#fff' : 'rgba(255,255,255,.45)',
+      onGo: () => this.setState({ diy: { ...this.state.diy, step: n } }),
+    }));
+
+    // ── Screen 4: cart ──
+    const items = this.state.items;
+    v.cartRows = items.map(i => ({
+      name: i.name, ing: i.ing, qty: String(i.qty),
+      line: (i.price * i.qty) + '₺', unit: i.price + '₺',
+      nameColor: i.custom ? '#D4AF7A' : '#fff',
+      inc: () => this.qty(i.id, 1), dec: () => this.qty(i.id, -1),
+      editLabel: i.custom ? 'Tarifi düzenle' : 'Kendine göre ayarla',
+    }));
+    const sub = items.reduce((s, i) => s + i.price * i.qty, 0);
+    v.subTotal = sub + '₺';
+    v.serviceFee = '0₺';
+    v.grandTotal = sub + '₺';
+    v.cartCountBig = items.reduce((s, i) => s + i.qty, 0) + ' ürün';
+    v.table = this.state.table;
+    v.mode = this.state.mode;
+    v.setServis = () => this.setState({ mode: 'Masaya servis' });
+    v.setBar = () => this.setState({ mode: 'Bardan al' });
+    v.modeServis = this.state.mode === 'Masaya servis';
+    v.modeBar = this.state.mode === 'Bardan al';
+    v.gateAge = this.state.gate === 'age';
+    v.gatePay = this.state.gate === 'pay';
+    v.openGate = () => this.setState({ gate: this.state.aged ? 'pay' : 'age' });
+    v.confirmAge = () => this.setState({ aged: true, gate: 'pay' });
+    v.closeGate = () => this.setState({ gate: null });
+    v.payNow = () => { this.setState({ gate: null }); this.add('paid', 'Ödeme alındı · ' + sub + '₺'); };
+    return v;
+  }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+name: maketail
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: maketail
+      POSTGRES_PASSWORD: maketail
+      POSTGRES_DB: maketail
+    ports:
+      - "5434:5432"
+    volumes:
+      - maketail_postgres:/var/lib/postgresql/data
+
+volumes:
+  maketail_postgres:

@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum CocktailOrigin {
+  PREMADE
+  USER_MADE
+}
+
+model IngredientType {
+  id          String       @id @default(cuid())
+  name        String       @unique
+  createdAt   DateTime     @default(now())
+  ingredients Ingredient[]
+}
+
+model Ingredient {
+  id          String               @id @default(cuid())
+  title       String
+  description String
+  imageUrl    String?
+  typeId      String
+  type        IngredientType       @relation(fields: [typeId], references: [id])
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  cocktails   CocktailIngredient[]
+
+  @@index([typeId])
+}
+
+model Cocktail {
+  id          String               @id @default(cuid())
+  title       String
+  maker       String
+  imageUrl    String?
+  origin      CocktailOrigin
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  ingredients CocktailIngredient[]
+}
+
+model CocktailIngredient {
+  cocktailId   String
+  ingredientId String
+  cocktail     Cocktail   @relation(fields: [cocktailId], references: [id], onDelete: Cascade)
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+
+  @@id([cocktailId, ingredientId])
+  @@index([ingredientId])
+}
