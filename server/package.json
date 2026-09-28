@@ -6,7 +6,8 @@
   "private": true,
   "license": "UNLICENSED",
   "prisma": {
-    "schema": "./prisma/schema.prisma"
+    "schema": "./prisma/schema.prisma",
+    "seed": "ts-node --project tsconfig.json prisma/seed.ts"
   },
   "scripts": {
     "build": "nest build",
@@ -35,7 +36,6 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",
     "dotenv": "^17.4.2",
-    "dotenv": "^17.2.3",
     "helmet": "^8.3.0",
     "nestjs-pino": "^4.6.1",
     "pg": "^8.16.3",

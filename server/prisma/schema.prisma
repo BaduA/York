@@ -53,3 +53,116 @@ model CocktailIngredient {
   @@id([cocktailId, ingredientId])
   @@index([ingredientId])
 }
+
+model MenuSection {
+  id           String      @id @default(cuid())
+  slug         String      @unique
+  title        String
+  subtitle     String?
+  icon         String      @default("solar:star-bold")
+  badge        String?
+  sortOrder    Int
+  isVisible    Boolean     @default(true)
+  gridTemplate String?
+  groups       MenuGroup[]
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+model MenuGroup {
+  id                String      @id @default(cuid())
+  sectionId         String
+  section           MenuSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  title             String?
+  sortOrder         Int
+  isVisible         Boolean     @default(true)
+  items             MenuItem[]
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  groupType         String      @default("card")
+  colStart          Int         @default(1)
+  colSpan           Int         @default(1)
+
+  borderHighlight   Boolean     @default(false)
+  cornerBadge       String?
+  glowEffect        Boolean     @default(false)
+
+  titleStyle        String      @default("plain")
+  titleNote         String?
+  titleRightIcon    String?
+  titleRightLabel   String?
+  titleRightBadge   String?
+  titleBorderBottom Boolean     @default(true)
+  subtitle          String?
+  descriptionText   String?
+  descriptionBoxPos String?
+
+  itemVariant       String      @default("simple")
+  itemLayout        String      @default("rows")
+  itemSize          String      @default("normal")
+  mergeWithPrev     Boolean     @default(false)
+
+  @@index([sectionId])
+}
+
+model MenuItem {
+  id          String    @id @default(cuid())
+  groupId     String
+  group       MenuGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  name        String
+  description String?
+  price       String    @default("")
+  priceNote   String?
+  badge       String?
+  itemVariant String?
+  sortOrder   Int
+  isVisible   Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([groupId])
+}
+
+// ─── Page Content ──────────────────────────────────────────────────────────────
+
+model MenuPageHero {
+  id               String   @id @default("singleton")
+  badgeText        String   @default("")
+  headingMain      String   @default("STREET FOOD")
+  headingHighlight String   @default("& CRAFT BAR")
+  description      String   @default("")
+  pill1Icon        String   @default("solar:cup-bold")
+  pill1Text        String   @default("")
+  pill2Icon        String   @default("mdi:fish")
+  pill2Text        String   @default("")
+  pill3Icon        String   @default("solar:stars-minimalistic-bold")
+  pill3Text        String   @default("")
+  updatedAt        DateTime @updatedAt
+}
+
+model MenuPageCard {
+  slot        Int      @id
+  badgeLabel  String   @default("")
+  title       String   @default("")
+  description String   @default("")
+  imageUrl    String?
+  updatedAt   DateTime @updatedAt
+}
+
+model MenuPageCta {
+  id               String   @id @default("singleton")
+  badgeText        String   @default("")
+  headingMain      String   @default("")
+  headingHighlight String   @default("")
+  description      String   @default("")
+  updatedAt        DateTime @updatedAt
+}
+
+model SushiVocabEntry {
+  id          String   @id @default(cuid())
+  term        String   @unique
+  translation String
+  sortOrder   Int
+  updatedAt   DateTime @updatedAt
+}

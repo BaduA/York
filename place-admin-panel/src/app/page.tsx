@@ -16,23 +16,9 @@ export default function DashboardPage() {
               <div>
                 <div className="flex items-center gap-2">
                   <span className="font-heading text-lg sm:text-xl font-bold uppercase tracking-wider text-foreground">Bilkent York</span>
-                  <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest bg-primary/20 text-primary border border-primary/30">Admin Suite</span>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest bg-primary/20 text-primary border border-primary/30">Admin Panel</span>
                 </div>
                 <p className="text-[11px] text-muted-foreground font-mono">Executive Intelligence &amp; Revenue Analytics</p>
-              </div>
-            </div>
-            <div className="hidden lg:flex items-center gap-4 text-xs font-medium">
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-background border border-border">
-                <span className="size-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span className="text-foreground">POS Kasa: <strong className="text-emerald-400">Online</strong></span>
-              </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-background border border-border">
-                <span className="size-2 rounded-full bg-emerald-500"></span>
-                <span className="text-foreground">Kokteyl Lab: <strong className="text-emerald-400">Canlı</strong></span>
-              </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-background border border-border">
-                <Icon icon="solar:calendar-date-bold" className="text-primary" />
-                <span className="text-foreground">Dönem: <strong className="text-primary font-mono">Mayıs 2025</strong></span>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -101,7 +87,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Stat cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="bg-card rounded-2xl border border-border p-5 space-y-3 relative overflow-hidden group hover:border-primary/50 transition-all">
             <div className="absolute top-0 right-0 w-24 h-24 bg-primary/10 rounded-full blur-2xl pointer-events-none"></div>
             <div className="flex items-center justify-between">
@@ -112,10 +98,6 @@ export default function DashboardPage() {
             </div>
             <div>
               <div className="text-3xl font-heading font-bold text-foreground font-mono">1.482.350 ₺</div>
-              <div className="flex items-center gap-1.5 text-xs text-emerald-400 mt-1 font-mono">
-                <Icon icon="solar:arrow-up-linear" width={14} height={14} />
-                <span>+22.4% geçen aya göre</span>
-              </div>
             </div>
             <div className="pt-3 border-t border-border flex items-center justify-between text-[11px] text-muted-foreground">
               <span>Günlük Ortalama: <strong className="text-foreground font-mono">59.200 ₺</strong></span>
@@ -132,10 +114,6 @@ export default function DashboardPage() {
             </div>
             <div>
               <div className="text-3xl font-heading font-bold text-foreground font-mono">2,140 <span className="text-sm font-sans font-normal text-muted-foreground">Kadeh</span></div>
-              <div className="flex items-center gap-1.5 text-xs text-emerald-400 mt-1 font-mono">
-                <Icon icon="solar:arrow-up-linear" width={14} height={14} />
-                <span>898.800 ₺ Lab Cirosu</span>
-              </div>
             </div>
             <div className="pt-3 border-t border-border flex items-center justify-between text-[11px] text-muted-foreground">
               <span>Kadeh Başı Ort.: <strong className="text-foreground font-mono">420 ₺</strong></span>
@@ -143,25 +121,6 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="bg-card rounded-2xl border border-border p-5 space-y-3 relative overflow-hidden group hover:border-primary/50 transition-all">
-            <div className="flex items-center justify-between">
-              <span className="text-xs uppercase font-bold text-muted-foreground font-mono">Mutfak &amp; Sushi Cirosu</span>
-              <div className="size-9 rounded-xl bg-secondary text-foreground border border-border flex items-center justify-center">
-                <Icon icon="solar:chef-hat-bold" width={20} height={20} />
-              </div>
-            </div>
-            <div>
-              <div className="text-3xl font-heading font-bold text-foreground font-mono">583.550 ₺</div>
-              <div className="flex items-center gap-1.5 text-xs text-emerald-400 mt-1 font-mono">
-                <Icon icon="solar:arrow-up-linear" width={14} height={14} />
-                <span>+14.1% Sushi &amp; Bento</span>
-              </div>
-            </div>
-            <div className="pt-3 border-t border-border flex items-center justify-between text-[11px] text-muted-foreground">
-              <span>En Çok Satan: <strong className="text-foreground">Dragon Roll (412 ad.)</strong></span>
-              <span className="text-muted-foreground">1.180 Sipariş</span>
-            </div>
-          </div>
 
           <div className="bg-card rounded-2xl border border-border p-5 space-y-3 relative overflow-hidden group hover:border-primary/50 transition-all">
             <div className="flex items-center justify-between">
@@ -172,10 +131,6 @@ export default function DashboardPage() {
             </div>
             <div>
               <div className="text-3xl font-heading font-bold text-primary font-mono">18,940 <span className="text-sm font-sans font-normal text-muted-foreground">Ziyaret</span></div>
-              <div className="flex items-center gap-1.5 text-xs text-emerald-400 mt-1 font-mono">
-                <Icon icon="solar:arrow-up-linear" width={14} height={14} />
-                <span>12,490 Doğrulanmış Oy</span>
-              </div>
             </div>
             <div className="pt-3 border-t border-border flex items-center justify-between text-[11px] text-muted-foreground">
               <span>Reçete Oluşturma: <strong className="text-foreground font-mono">%23.4</strong></span>
@@ -192,12 +147,11 @@ export default function DashboardPage() {
             <div className="bg-card rounded-2xl border border-border p-6 space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border pb-4">
                 <div>
-                  <h2 className="font-heading text-xl font-bold uppercase tracking-wider text-foreground">GÜNLÜK CİRO &amp; KOKTEYL LAB SATIŞ TRENDİ</h2>
-                  <p className="text-xs text-muted-foreground">Mayıs ayı boyunca gün gün toplam gelir (TL) ve Kokteyl Lab oranı</p>
+                  <h2 className="font-heading text-xl font-bold uppercase tracking-wider text-foreground">GÜNLÜK KOKTEYL LAB SATIŞ TRENDİ</h2>
+                  <p className="text-xs text-muted-foreground">Mayıs ayı boyunca gün gün Kokteyl Lab satış trendi</p>
                 </div>
                 <div className="flex items-center gap-4 text-xs font-mono">
                   <span className="flex items-center gap-1.5"><span className="size-3 rounded-sm bg-primary"></span><span className="text-foreground">Kendi Kokteylini Yap</span></span>
-                  <span className="flex items-center gap-1.5"><span className="size-3 rounded-sm bg-zinc-600"></span><span className="text-muted-foreground">Yemek &amp; Standart Bar</span></span>
                 </div>
               </div>
               <div className="h-64 flex items-end gap-2 sm:gap-3 pt-6 pb-2 border-b border-border/80">
@@ -218,8 +172,7 @@ export default function DashboardPage() {
                   <div key={bar.label} className="flex-1 h-full flex flex-col justify-end items-center gap-1.5 group cursor-pointer">
                     <span className={`text-[10px] font-mono opacity-0 group-hover:opacity-100 transition-opacity ${bar.today ? "text-emerald-400 font-bold" : bar.highlight ? "text-primary font-bold" : "text-muted-foreground"}`}>{bar.value}</span>
                     <div className="w-full flex flex-col justify-end h-full" style={{ maxHeight: `${bar.h}%` }}>
-                      <div className="w-full bg-zinc-700 rounded-t-sm" style={{ height: `${100 - bar.primary}%` }}></div>
-                      <div className={`w-full bg-primary rounded-b-sm ${bar.peak ? "shadow-lg shadow-primary/30" : ""}`} style={{ height: `${bar.primary}%` }}></div>
+                      <div className={`w-full h-full bg-primary rounded-sm ${bar.peak ? "shadow-lg shadow-primary/30" : ""}`}></div>
                     </div>
                     <span className={`text-[10px] font-mono ${bar.today ? "text-emerald-400 font-bold" : bar.highlight ? "text-primary font-bold" : "text-muted-foreground"}`}>{bar.label}</span>
                   </div>
@@ -245,36 +198,28 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            {/* Category breakdown */}
-            <div className="bg-card rounded-2xl border border-border p-6 space-y-6">
-              <div className="flex items-center justify-between border-b border-border pb-4">
-                <div>
-                  <h3 className="font-heading text-xl font-bold uppercase tracking-wider text-foreground">KATEGORİ BAZLI GELİR DAĞILIMI</h3>
-                  <p className="text-xs text-muted-foreground">Mekan gelirlerinin departmanlara ve ürün gruplarına göre payı</p>
-                </div>
-                <span className="text-xs font-mono font-bold text-primary">Mayıs 2025</span>
+            {/* Most-used bases */}
+            <div className="bg-card rounded-2xl border border-border p-6 space-y-4">
+              <div className="flex items-center justify-between border-b border-border pb-3">
+                <h3 className="font-heading text-lg font-bold uppercase tracking-wider text-foreground">EN ÇOK TÜKETİLEN BAZLAR</h3>
+                <span className="text-[10px] font-mono font-bold uppercase text-muted-foreground">Bu Ay</span>
               </div>
-              <div className="space-y-4 text-xs">
+              <div className="space-y-3 text-xs">
                 {[
-                  { icon: "solar:cup-hot-bold", iconColor: "text-primary", label: "Kendi Kokteylini Yap (Lab & Yarışma)", amount: "898.800 ₺", pct: "60.6", barColor: "bg-primary", pctColor: "text-primary font-bold" },
-                  { icon: "solar:chef-hat-bold", iconColor: "text-zinc-400", label: "Mutfak (Wok Noodle, Pad Thai & Bentolar)", amount: "342.100 ₺", pct: "23.1", barColor: "bg-zinc-400", pctColor: "text-muted-foreground" },
-                  { icon: "solar:box-minimalistic-bold", iconColor: "text-amber-500", label: "Sushi Bar (Sashimi, Nigiri & Uramaki Rolls)", amount: "241.450 ₺", pct: "16.3", barColor: "bg-amber-500", pctColor: "text-amber-400 font-bold" },
-                  { icon: "solar:cup-bold", iconColor: "text-blue-400", label: "Bira Kovaları & 5+1 Shot Paketleri", amount: "198.600 ₺", pct: "13.4", barColor: "bg-blue-500", pctColor: "text-blue-400 font-bold" },
-                ].map((row) => (
-                  <div key={row.label} className="space-y-1.5">
-                    <div className="flex items-center justify-between">
-                      <div className={`flex items-center gap-2 font-bold text-foreground`}>
-                        <Icon icon={row.icon} className={row.iconColor} />
-                        <span>{row.label}</span>
-                      </div>
-                      <div className="font-mono">
-                        <span className="font-bold text-foreground">{row.amount}</span>
-                        <span className={`ml-2 ${row.pctColor}`}>(%{row.pct})</span>
+                  { rank: 1, name: "Rye Whiskey 100 Proof", sub: "Kokteyl Lab Baz Seçimi", amount: "84 Şişe (42L)", highlight: true },
+                  { rank: 2, name: "Japanese Botanical Gin", sub: "Kokteyl Lab Baz Seçimi", amount: "62 Şişe (31L)" },
+                  { rank: 3, name: "Blanco Agave Tequila", sub: "Shot & Lab Bazı", amount: "58 Şişe (29L)" },
+                  { rank: 4, name: "Yuzu & Hibiscus Cordial", sub: "Ev Yapımı Mikser", amount: "78 Litre" },
+                ].map((b) => (
+                  <div key={b.rank} className="flex items-center justify-between p-2.5 rounded-lg bg-background border border-border">
+                    <div className="flex items-center gap-2.5">
+                      <span className={`size-6 rounded font-mono font-bold flex items-center justify-center text-[10px] ${b.highlight ? "bg-primary/20 text-primary" : "bg-secondary text-muted-foreground"}`}>{b.rank}</span>
+                      <div>
+                        <div className="font-bold text-foreground">{b.name}</div>
+                        <div className="text-[10px] text-muted-foreground">{b.sub}</div>
                       </div>
                     </div>
-                    <div className="w-full h-2.5 rounded-full bg-secondary overflow-hidden">
-                      <div className={`h-full ${row.barColor} rounded-full`} style={{ width: `${row.pct}%` }}></div>
-                    </div>
+                    <span className={`font-mono font-bold ${b.highlight ? "text-primary" : "text-foreground"}`}>{b.amount}</span>
                   </div>
                 ))}
               </div>
@@ -330,32 +275,6 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            {/* Most-used bases */}
-            <div className="bg-card rounded-2xl border border-border p-6 space-y-4">
-              <div className="flex items-center justify-between border-b border-border pb-3">
-                <h3 className="font-heading text-lg font-bold uppercase tracking-wider text-foreground">EN ÇOK TÜKETİLEN BAZLAR</h3>
-                <span className="text-[10px] font-mono font-bold uppercase text-muted-foreground">Bu Ay</span>
-              </div>
-              <div className="space-y-3 text-xs">
-                {[
-                  { rank: 1, name: "Rye Whiskey 100 Proof", sub: "Kokteyl Lab Baz Seçimi", amount: "84 Şişe (42L)", highlight: true },
-                  { rank: 2, name: "Japanese Botanical Gin", sub: "Kokteyl Lab Baz Seçimi", amount: "62 Şişe (31L)" },
-                  { rank: 3, name: "Blanco Agave Tequila", sub: "Shot & Lab Bazı", amount: "58 Şişe (29L)" },
-                  { rank: 4, name: "Yuzu & Hibiscus Cordial", sub: "Ev Yapımı Mikser", amount: "78 Litre" },
-                ].map((b) => (
-                  <div key={b.rank} className="flex items-center justify-between p-2.5 rounded-lg bg-background border border-border">
-                    <div className="flex items-center gap-2.5">
-                      <span className={`size-6 rounded font-mono font-bold flex items-center justify-center text-[10px] ${b.highlight ? "bg-primary/20 text-primary" : "bg-secondary text-muted-foreground"}`}>{b.rank}</span>
-                      <div>
-                        <div className="font-bold text-foreground">{b.name}</div>
-                        <div className="text-[10px] text-muted-foreground">{b.sub}</div>
-                      </div>
-                    </div>
-                    <span className={`font-mono font-bold ${b.highlight ? "text-primary" : "text-foreground"}`}>{b.amount}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </main>

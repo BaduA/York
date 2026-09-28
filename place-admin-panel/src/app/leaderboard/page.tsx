@@ -16,8 +16,6 @@ const contestants = [
     voteToday: "+180 bugün",
     voteTodayColor: "text-emerald-400",
     voteColor: "text-primary",
-    approval: "Onaylandı",
-    approvalClass: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
     rowClass: "bg-primary/5",
     rankClass: "bg-primary text-primary-foreground shadow-sm",
     actions: "menu",
@@ -36,8 +34,6 @@ const contestants = [
     voteToday: "+92 bugün",
     voteTodayColor: "text-emerald-400",
     voteColor: "text-foreground",
-    approval: "Onaylandı",
-    approvalClass: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
     rowClass: "",
     rankClass: "bg-secondary text-foreground",
     actions: "edit",
@@ -56,8 +52,6 @@ const contestants = [
     voteToday: "+44 bugün",
     voteTodayColor: "text-muted-foreground",
     voteColor: "text-foreground",
-    approval: "Onaylandı",
-    approvalClass: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
     rowClass: "",
     rankClass: "bg-secondary text-foreground",
     actions: "edit",
@@ -76,8 +70,6 @@ const contestants = [
     voteToday: "+29 bugün",
     voteTodayColor: "text-muted-foreground",
     voteColor: "text-foreground",
-    approval: "Onaylandı",
-    approvalClass: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
     rowClass: "",
     rankClass: "bg-secondary text-muted-foreground",
     actions: "edit",
@@ -96,8 +88,6 @@ const contestants = [
     voteToday: "Şüpheli Oy Artışı",
     voteTodayColor: "text-destructive",
     voteColor: "text-foreground",
-    approval: "Barmen Reddetti",
-    approvalClass: "bg-destructive/20 text-destructive border-destructive/40",
     rowClass: "bg-red-950/15",
     rankClass: "bg-destructive/30 text-destructive",
     actions: "disqualify",
@@ -119,27 +109,13 @@ export default function LeaderboardPage() {
               <div>
                 <div className="flex items-center gap-2">
                   <span className="font-heading text-lg sm:text-xl font-bold uppercase tracking-wider text-foreground">Bilkent York</span>
-                  <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest bg-primary/20 text-primary border border-primary/30">Admin Suite</span>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest bg-primary/20 text-primary border border-primary/30">Admin Panel</span>
                 </div>
                 <p className="text-[11px] text-muted-foreground font-mono">Liderlik Tablosu, Oylar &amp; Menüye Aktarım</p>
               </div>
             </div>
-            <div className="hidden lg:flex items-center gap-4 text-xs font-medium">
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-background border border-border">
-                <span className="size-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span className="text-foreground">Mayıs 2025 Yarışması: <strong className="text-emerald-400">Canlı Oylamada</strong></span>
-              </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-background border border-border">
-                <Icon icon="solar:clock-circle-bold" className="text-primary" />
-                <span className="text-foreground">Kapanışa Kalan: <strong className="text-primary font-mono">6 Gün 14 Saat</strong></span>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <button className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold font-heading uppercase tracking-wider shadow-md shadow-primary/20 hover:bg-primary/90 transition-all">
-                <Icon icon="solar:cup-star-bold" width={16} height={16} />
-                Şampiyonu Menüye Aktar
-              </button>
-              <div className="flex items-center gap-2.5 pl-2 border-l border-border">
+<div className="flex items-center gap-3">
+              <div className="flex items-center gap-2.5">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="https://lh3.googleusercontent.com/a/ACg8ocJCxwMUJaUR_K6XCsiAdpE7nvLNJBzBaXmv3EjdUs_F69FMRS4=s96-c" alt="Badu Alp Ustagül" className="size-8 rounded-lg border border-primary/50 object-cover" />
                 <div className="hidden md:block text-left">
@@ -193,7 +169,7 @@ export default function LeaderboardPage() {
               Müşterilerin oluşturduğu kokteylleri denetleyin, hileli oyları engelleyin ve 1. olan reçeteyi doğrudan resmi menüye aktarın
             </p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <select defaultValue="Mayıs 2025 (Aktif Sezon)" className="bg-card border border-border text-foreground text-xs rounded-xl px-3 py-2 font-mono font-semibold focus:border-primary focus:outline-none">
               <option>Mayıs 2025 (Aktif Sezon)</option>
               <option>Nisan 2025 (Crimson Dusk Kazandı)</option>
@@ -202,6 +178,10 @@ export default function LeaderboardPage() {
             <button className="px-3.5 py-2 rounded-xl bg-secondary border border-border hover:bg-muted text-xs font-semibold text-foreground flex items-center gap-1.5">
               <Icon icon="solar:refresh-linear" width={14} height={14} />
               Oyları Yenile
+            </button>
+            <button className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-bold font-heading uppercase tracking-wider shadow-md shadow-primary/20 hover:bg-primary/90 transition-all">
+              <Icon icon="solar:cup-star-bold" width={16} height={16} />
+              Şampiyonu Menüye Aktar
             </button>
           </div>
         </div>
@@ -215,9 +195,6 @@ export default function LeaderboardPage() {
                 <span className="px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold font-mono tracking-wider flex items-center gap-1 shadow-md">
                   <Icon icon="solar:cup-star-bold" width={16} height={16} />
                   #1 MEVCUT LİDER • MENÜ ADAYI
-                </span>
-                <span className="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-mono font-bold">
-                  Barmen Onaylı (%94 İçilebilirlik)
                 </span>
               </div>
               <div>
@@ -275,14 +252,6 @@ export default function LeaderboardPage() {
               <h3 className="font-heading text-lg font-bold uppercase tracking-wider text-foreground">TÜM YARIŞMACI KOKTEYLLER &amp; OYLAMA SIRALAMASI</h3>
               <p className="text-xs text-muted-foreground">Mayıs ayı boyunca oluşturulup yarışmaya katılan 48 reçete</p>
             </div>
-            <div className="flex items-center gap-2">
-              <button className="px-3 py-1.5 rounded-lg bg-secondary text-muted-foreground hover:text-foreground text-xs font-semibold border border-border">
-                Bot/Çift Oy Taraması Yap
-              </button>
-              <button className="px-3 py-1.5 rounded-lg bg-secondary text-muted-foreground hover:text-foreground text-xs font-semibold border border-border">
-                CSV Olarak Dışa Aktar
-              </button>
-            </div>
           </div>
 
           <div className="overflow-x-auto">
@@ -294,7 +263,6 @@ export default function LeaderboardPage() {
                   <th className="py-3 px-3 font-semibold">Reçete Özeti</th>
                   <th className="py-3 px-3 font-semibold text-right">Lab Siparişi</th>
                   <th className="py-3 px-3 font-semibold text-right">Doğrulanmış Oy</th>
-                  <th className="py-3 px-3 font-semibold text-center">Barmen Onayı</th>
                   <th className="py-3 px-3 font-semibold text-right">İşlemler</th>
                 </tr>
               </thead>
@@ -325,11 +293,6 @@ export default function LeaderboardPage() {
                     <td className="py-3.5 px-3 text-right">
                       <div className={`font-mono font-bold text-sm ${c.voteColor}`}>{c.votes}</div>
                       <div className={`text-[10px] font-mono ${c.voteTodayColor}`}>{c.voteToday}</div>
-                    </td>
-                    <td className="py-3.5 px-3 text-center">
-                      <span className={`px-2 py-0.5 rounded-full border text-[10px] font-bold ${c.approvalClass}`}>
-                        {c.approval}
-                      </span>
                     </td>
                     <td className="py-3.5 px-3 text-right">
                       <div className="flex items-center justify-end gap-1.5">

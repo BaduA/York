@@ -11,6 +11,8 @@ import { IngredientTypesModule } from './ingredient-types/ingredient-types.modul
 import { IngredientsModule } from './ingredients/ingredients.module';
 import { CocktailsModule } from './cocktails/cocktails.module';
 import { UploadModule } from './upload/upload.module';
+import { MenuModule } from './menu/menu.module';
+import { PageContentModule } from './page-content/page-content.module';
 
 const isDev = process.env.NODE_ENV !== 'production';
 
@@ -44,6 +46,8 @@ const isDev = process.env.NODE_ENV !== 'production';
     IngredientsModule,
     CocktailsModule,
     UploadModule,
+    MenuModule,
+    PageContentModule,
   ],
   providers: [
     { provide: APP_GUARD, useClass: ThrottlerGuard },

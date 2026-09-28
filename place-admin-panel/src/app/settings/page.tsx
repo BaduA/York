@@ -16,27 +16,13 @@ export default function SettingsPage() {
               <div>
                 <div className="flex items-center gap-2">
                   <span className="font-heading text-lg sm:text-xl font-bold uppercase tracking-wider text-foreground">Bilkent York</span>
-                  <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest bg-primary/20 text-primary border border-primary/30">Admin Suite</span>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest bg-primary/20 text-primary border border-primary/30">Admin Panel</span>
                 </div>
                 <p className="text-[11px] text-muted-foreground font-mono">Sistem Ayarları, POS &amp; Güvenlik Konfigürasyonu</p>
               </div>
             </div>
-            <div className="hidden lg:flex items-center gap-4 text-xs font-medium">
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-background border border-border">
-                <span className="size-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span className="text-foreground">Sistem Versiyonu: <strong className="text-emerald-400 font-mono">v2.4.8 (Stable)</strong></span>
-              </div>
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-background border border-border">
-                <Icon icon="solar:database-bold" className="text-primary" />
-                <span className="text-foreground">Son Yedekleme: <strong className="text-primary font-mono">Bugün 04:00</strong></span>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <button className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-primary text-primary-foreground text-xs font-bold font-heading uppercase tracking-wider shadow-md shadow-primary/20 hover:bg-primary/90 transition-all">
-                <Icon icon="solar:diskette-bold" width={16} height={16} />
-                Ayarları Kaydet
-              </button>
-              <div className="flex items-center gap-2.5 pl-2 border-l border-border">
+<div className="flex items-center gap-3">
+              <div className="flex items-center gap-2.5">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="https://lh3.googleusercontent.com/a/ACg8ocJCxwMUJaUR_K6XCsiAdpE7nvLNJBzBaXmv3EjdUs_F69FMRS4=s96-c" alt="Badu Alp Ustagül" className="size-8 rounded-lg border border-primary/50 object-cover" />
                 <div className="hidden md:block text-left">
@@ -270,6 +256,13 @@ export default function SettingsPage() {
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="flex justify-end">
+          <button className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-primary text-primary-foreground text-xs font-bold font-heading uppercase tracking-wider shadow-md shadow-primary/20 hover:bg-primary/90 transition-all">
+            <Icon icon="solar:diskette-bold" width={16} height={16} />
+            Ayarları Kaydet
+          </button>
         </div>
       </main>
 
