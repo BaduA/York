@@ -10,6 +10,13 @@
   },
   "dependencies": {
     "@iconify/react": "^6.0.2",
+    "@tiptap/extension-color": "^3.31.3",
+    "@tiptap/extension-text-align": "^3.31.3",
+    "@tiptap/extension-text-style": "^3.31.3",
+    "@tiptap/extension-underline": "^3.31.3",
+    "@tiptap/pm": "^3.31.3",
+    "@tiptap/react": "^3.31.3",
+    "@tiptap/starter-kit": "^3.31.3",
     "next": "16.3.4",
     "react": "19.2.8",
     "react-dom": "19.2.8"

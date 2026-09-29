@@ -3,6 +3,31 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import { TextStyle } from "@tiptap/extension-text-style";
+import { Color } from "@tiptap/extension-color";
+import TextAlign from "@tiptap/extension-text-align";
+import Underline from "@tiptap/extension-underline";
+import { Extension } from "@tiptap/core";
+
+const FontSize = Extension.create({
+  name: "fontSize",
+  addOptions() { return { types: ["textStyle"] }; },
+  addGlobalAttributes() {
+    return [{ types: this.options.types, attributes: { fontSize: {
+      default: null,
+      parseHTML: el => (el as HTMLElement).style.fontSize || null,
+      renderHTML: attrs => attrs.fontSize ? { style: `font-size: ${attrs.fontSize}` } : {},
+    }}}];
+  },
+  addCommands() {
+    return {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      setFontSize: (size: string) => ({ chain }: any) => chain().setMark("textStyle", { fontSize: size }).run(),
+    };
+  },
+});
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -56,8 +81,6 @@ type ASection = {
   groups: AGroup[];
 };
 
-type AVocab = { id: string; term: string; translation: string; sortOrder: number };
-
 type FormHandle = { getData: () => Record<string, unknown> };
 
 type ModalState =
@@ -67,9 +90,7 @@ type ModalState =
   | { type: "add-group"; sectionId: string; nextSort: number }
   | { type: "edit-group"; group: AGroup }
   | { type: "add-item"; groupId: string; nextSort: number }
-  | { type: "edit-item"; item: AItem }
-  | { type: "add-vocab"; nextSort: number }
-  | { type: "edit-vocab"; vocab: AVocab };
+  | { type: "edit-item"; item: AItem };
 
 // ─── API ──────────────────────────────────────────────────────────────────────
 
@@ -272,23 +293,6 @@ const ItemForm = React.forwardRef<FormHandle, { init?: Partial<AItem> }>(({ init
 });
 ItemForm.displayName = "ItemForm";
 
-const VocabForm = React.forwardRef<FormHandle, { init?: Partial<AVocab> }>(({ init = {} }, ref) => {
-  const [term, setTerm] = useState(init.term ?? "");
-  const [translation, setTranslation] = useState(init.translation ?? "");
-  const [sortOrder, setSortOrder] = useState(init.sortOrder ?? 0);
-  React.useImperativeHandle(ref, () => ({
-    getData: () => ({ term, translation, sortOrder }),
-  }), [term, translation, sortOrder]);
-  return (
-    <>
-      <Field label="Terim"><FT v={term} s={setTerm} p="Sake" /></Field>
-      <Field label="Çeviri"><FT v={translation} s={setTranslation} p="Somon" /></Field>
-      <Field label="Sıra No"><FN v={sortOrder} s={setSortOrder} /></Field>
-    </>
-  );
-});
-VocabForm.displayName = "VocabForm";
-
 // ─── Slide panel ──────────────────────────────────────────────────────────────
 
 function Panel({ title, onClose, onSave, onDelete, busy, children }: {
@@ -343,6 +347,104 @@ function AddGroupBtn({ onClick, label = "Yeni Grup Ekle" }: { onClick: () => voi
   );
 }
 
+// ─── Rich text description box ───────────────────────────────────────────────
+
+const COLORS = ["#ffffff", "#a1a1aa", "#f87171", "#fb923c", "#facc15", "#4ade80", "#60a5fa", "#c084fc"];
+
+function DescriptionBox({ group, onSave }: {
+  group: AGroup;
+  onSave: (groupId: string, html: string) => Promise<void>;
+}) {
+  const [editing, setEditing] = useState(false);
+  const [, setTick] = useState(0);
+
+  const editor = useEditor({
+    onTransaction: () => setTick(t => t + 1),
+    onSelectionUpdate: () => setTick(t => t + 1),
+    extensions: [
+      StarterKit,
+      TextStyle,
+      FontSize,
+      Color,
+      Underline,
+      TextAlign.configure({ types: ["heading", "paragraph"] }),
+    ],
+    content: group.descriptionText ?? "",
+    editable: editing,
+    editorProps: {
+      attributes: { class: "outline-none min-h-[1.5rem] text-xs focus:outline-none" },
+    },
+  });
+
+  useEffect(() => {
+    editor?.setEditable(editing);
+    if (editing) editor?.commands.focus("end");
+  }, [editing, editor]);
+
+  const handleSave = async () => {
+    const html = editor?.getHTML() ?? "";
+    setEditing(false);
+    await onSave(group.id, html);
+  };
+
+  return (
+    <div className={`rounded-xl bg-card border transition-colors ${editing ? "border-primary/60 ring-2 ring-primary/20" : "border-border hover:border-primary/50"}`}>
+      {editing && (
+        <div className="flex flex-wrap items-center gap-1 px-3 py-2 border-b border-border/60">
+          <select onMouseDown={e => e.stopPropagation()}
+            value={editor?.getAttributes("textStyle").fontSize ?? ""}
+            onChange={e => { e.target.value ? editor?.chain().focus().setMark("textStyle", { fontSize: e.target.value }).run() : editor?.chain().focus().unsetMark("textStyle").run(); }}
+            className="h-6 rounded bg-muted border-0 text-xs text-foreground px-1 cursor-pointer focus:outline-none focus:ring-1 focus:ring-primary/40">
+            <option value="">—</option>
+            {["10px","11px","12px","13px","14px","16px","18px","20px","24px","28px","32px","36px"].map(s => (
+              <option key={s} value={s}>{s.replace("px","")}</option>
+            ))}
+          </select>
+          <div className="w-px h-4 bg-border/60 mx-0.5" />
+          <button onMouseDown={e => { e.preventDefault(); editor?.chain().focus().toggleBold().run(); }}
+            className={`px-2 py-1 rounded text-xs font-bold transition-all ${editor?.isActive("bold") ? "bg-primary text-primary-foreground ring-1 ring-primary/60" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}>B</button>
+          <button onMouseDown={e => { e.preventDefault(); editor?.chain().focus().toggleItalic().run(); }}
+            className={`px-2 py-1 rounded text-xs italic transition-all ${editor?.isActive("italic") ? "bg-primary text-primary-foreground ring-1 ring-primary/60" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}>I</button>
+          <button onMouseDown={e => { e.preventDefault(); editor?.chain().focus().toggleUnderline().run(); }}
+            className={`px-2 py-1 rounded text-xs underline transition-all ${editor?.isActive("underline") ? "bg-primary text-primary-foreground ring-1 ring-primary/60" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}>U</button>
+          <div className="w-px h-4 bg-border/60 mx-0.5" />
+          <button onMouseDown={e => { e.preventDefault(); editor?.chain().focus().setTextAlign("left").run(); }}
+            className={`px-2 py-1 rounded text-xs transition-all ${editor?.isActive({ textAlign: "left" }) ? "bg-primary text-primary-foreground ring-1 ring-primary/60" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}>
+            <Icon icon="solar:align-left-bold" width={12} /></button>
+          <button onMouseDown={e => { e.preventDefault(); editor?.chain().focus().setTextAlign("center").run(); }}
+            className={`px-2 py-1 rounded text-xs transition-all ${editor?.isActive({ textAlign: "center" }) ? "bg-primary text-primary-foreground ring-1 ring-primary/60" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}>
+            <Icon icon="solar:align-center-bold" width={12} /></button>
+          <button onMouseDown={e => { e.preventDefault(); editor?.chain().focus().setTextAlign("right").run(); }}
+            className={`px-2 py-1 rounded text-xs transition-all ${editor?.isActive({ textAlign: "right" }) ? "bg-primary text-primary-foreground ring-1 ring-primary/60" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}>
+            <Icon icon="solar:align-right-bold" width={12} /></button>
+          <div className="w-px h-4 bg-border/60 mx-0.5" />
+          {COLORS.map(c => (
+            <button key={c} onMouseDown={e => { e.preventDefault(); editor?.chain().focus().setColor(c).run(); }}
+              className={`size-4 rounded-full transition-all ${editor?.isActive("textStyle", { color: c }) ? "scale-125 ring-2 ring-white/70 ring-offset-1 ring-offset-card" : "border border-white/10 hover:scale-110"}`}
+              style={{ background: c }} />
+          ))}
+          <div className="flex-1" />
+          <button onMouseDown={e => { e.preventDefault(); handleSave(); }}
+            className="px-3 py-1 rounded bg-primary text-primary-foreground text-xs font-bold hover:bg-primary/90 transition-colors">
+            Kaydet
+          </button>
+          <button onMouseDown={e => { e.preventDefault(); setEditing(false); editor?.commands.setContent(group.descriptionText ?? ""); }}
+            className="px-3 py-1 rounded bg-muted text-muted-foreground text-xs hover:bg-secondary transition-colors">
+            İptal
+          </button>
+        </div>
+      )}
+      <div onClick={() => !editing && setEditing(true)} className={`p-4 ${!editing ? "cursor-pointer" : "cursor-text"}`}>
+        {editor ? (
+          <EditorContent editor={editor} />
+        ) : (
+          <span className="text-xs opacity-35">Tıkla ve düzenle…</span>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ─── Section header ───────────────────────────────────────────────────────────
 
 function SectionHeader({ section, onEdit }: { section: ASection | undefined; onEdit: () => void }) {
@@ -391,27 +493,16 @@ function ItemList({ items, onEdit, onAdd }: {
 
 export default function MenuPage() {
   const [sections, setSections] = useState<ASection[]>([]);
-  const [vocab, setVocab] = useState<AVocab[]>([]);
   const [modal, setModal] = useState<ModalState>(null);
   const [busy, setBusy] = useState(false);
   const formRef = useRef<FormHandle | null>(null);
 
-  const reloadSections = () => {
+  const reload = () => {
     fetch(`${BASE}/menu/admin`, { headers: { "x-admin-key": ADMIN_KEY } })
       .then(r => r.json())
       .then((d: unknown) => { if (Array.isArray(d)) setSections(d as ASection[]); })
       .catch(() => {});
   };
-  const reloadVocab = () => {
-    fetch(`${BASE}/page-content/menu`, { headers: { "x-admin-key": ADMIN_KEY } })
-      .then(r => r.json())
-      .then((d: unknown) => {
-        const v = (d as Record<string, unknown>)?.vocab;
-        if (Array.isArray(v)) setVocab(v as AVocab[]);
-      })
-      .catch(() => {});
-  };
-  const reload = () => { reloadSections(); reloadVocab(); };
 
   useEffect(reload, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -426,8 +517,6 @@ export default function MenuPage() {
       else if (modal.type === "edit-group") await api("PATCH", `/menu/groups/${modal.group.id}`, data);
       else if (modal.type === "add-item") await api("POST", `/menu/groups/${modal.groupId}/items`, { ...data, sortOrder: modal.nextSort });
       else if (modal.type === "edit-item") await api("PATCH", `/menu/items/${modal.item.id}`, data);
-      else if (modal.type === "add-vocab") await api("POST", "/page-content/menu/sushi-vocab", { ...data, sortOrder: modal.nextSort });
-      else if (modal.type === "edit-vocab") await api("PATCH", `/page-content/menu/sushi-vocab/${modal.vocab.id}`, data);
       setModal(null);
       reload();
     } catch (e) {
@@ -449,7 +538,6 @@ export default function MenuPage() {
       if (modal.type === "edit-item") await api("DELETE", `/menu/items/${modal.item.id}`);
       else if (modal.type === "edit-group") await api("DELETE", `/menu/groups/${modal.group.id}`);
       else if (modal.type === "edit-section") await api("DELETE", `/menu/sections/${modal.section.id}`);
-      else if (modal.type === "edit-vocab") await api("DELETE", `/page-content/menu/sushi-vocab/${modal.vocab.id}`);
       setModal(null);
       reload();
     } catch (e) {
@@ -459,7 +547,12 @@ export default function MenuPage() {
     }
   }
 
-  const isEditModal = modal?.type === "edit-item" || modal?.type === "edit-group" || modal?.type === "edit-section" || modal?.type === "edit-vocab";
+  const isEditModal = modal?.type === "edit-item" || modal?.type === "edit-group" || modal?.type === "edit-section";
+
+  async function saveDescriptionBox(groupId: string, html: string) {
+    await api("PATCH", `/menu/groups/${groupId}`, { descriptionText: html }).catch(() => {});
+    reload();
+  }
 
   function editItem(item: AItem) { setModal({ type: "edit-item", item }); }
   function editGroup(group: AGroup) { setModal({ type: "edit-group", group }); }
@@ -728,24 +821,9 @@ export default function MenuPage() {
         {sushiSec && (
           <section id="sushi-bar" className="space-y-6 scroll-mt-[120px]">
             <SectionHeader section={sushiSec} onEdit={() => editSection(sushiSec)} />
-            <div className="p-4 rounded-xl bg-card border border-border hover:border-primary/50 transition-colors flex flex-wrap items-center gap-3 text-xs">
-              <span className="font-font-heading text-primary text-sm font-bold uppercase tracking-wider shrink-0">Sushi Sözlüğü:</span>
-              <div className="flex items-center gap-2 flex-wrap flex-1">
-                {vocab.map((v, i) => (
-                  <React.Fragment key={v.id}>
-                    {i > 0 && <span className="text-muted-foreground/40 select-none">•</span>}
-                    <span onClick={() => setModal({ type: "edit-vocab", vocab: v })}
-                      className="cursor-pointer hover:bg-primary/10 hover:text-primary rounded px-1.5 py-0.5 -mx-1.5 transition-colors text-muted-foreground">
-                      <strong className="text-foreground">{v.term}:</strong> {v.translation}
-                    </span>
-                  </React.Fragment>
-                ))}
-              </div>
-              <button onClick={() => setModal({ type: "add-vocab", nextSort: vocab.length })}
-                className="shrink-0 flex items-center gap-1 px-2.5 py-1 rounded border border-dashed border-border/60 text-muted-foreground/50 hover:text-primary hover:border-primary/40 hover:bg-primary/5 transition-colors">
-                <Icon icon="solar:add-circle-bold" width={12} /> Terim Ekle
-              </button>
-            </div>
+            {sushiSec?.groups.filter(g => g.groupType === "description-box").map(g => (
+              <DescriptionBox key={g.id} group={g} onSave={saveDescriptionBox} />
+            ))}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
               <div className="lg:col-span-5 space-y-6">
                 {/* Sashimi + Nigiri */}
@@ -1008,7 +1086,7 @@ export default function MenuPage() {
       {/* Panel */}
       {modal && (
         <Panel
-          title={modal.type === "add-section" ? "Yeni Bölüm" : modal.type === "edit-section" ? "Bölüm Düzenle" : modal.type === "add-group" ? "Yeni Grup" : modal.type === "edit-group" ? "Grup Düzenle" : modal.type === "add-item" ? "Yeni Ürün" : modal.type === "edit-item" ? "Ürün Düzenle" : modal.type === "add-vocab" ? "Yeni Terim" : "Terim Düzenle"}
+          title={modal.type === "add-section" ? "Yeni Bölüm" : modal.type === "edit-section" ? "Bölüm Düzenle" : modal.type === "add-group" ? "Yeni Grup" : modal.type === "edit-group" ? "Grup Düzenle" : modal.type === "add-item" ? "Yeni Ürün" : "Ürün Düzenle"}
           onClose={() => setModal(null)} onSave={save} onDelete={isEditModal ? del : undefined} busy={busy}
         >
           {modal.type === "add-section" && <SectionForm ref={formRef} />}
@@ -1017,8 +1095,6 @@ export default function MenuPage() {
           {modal.type === "edit-group" && <GroupForm ref={formRef} init={modal.group} />}
           {modal.type === "add-item" && <ItemForm ref={formRef} />}
           {modal.type === "edit-item" && <ItemForm ref={formRef} init={modal.item} />}
-          {modal.type === "add-vocab" && <VocabForm ref={formRef} />}
-          {modal.type === "edit-vocab" && <VocabForm ref={formRef} init={modal.vocab} />}
         </Panel>
       )}
     </div>

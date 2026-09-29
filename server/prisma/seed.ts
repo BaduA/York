@@ -101,6 +101,7 @@ async function main() {
           sortOrder: 0,
           groupType: 'description-box',
           descriptionBoxPos: 'top',
+          descriptionText: '<p><strong>Sake:</strong> Somon &nbsp;•&nbsp; <strong>Suzuki:</strong> Levrek &nbsp;•&nbsp; <strong>Ebi:</strong> Karides &nbsp;•&nbsp; <strong>Kani:</strong> Yengeç Surimi &nbsp;•&nbsp; <strong>Unagi:</strong> Yılan Balığı &nbsp;•&nbsp; <strong>Tobiko:</strong> Uçan Balık Yumurtası</p>',
           items: [],
         },
         {
