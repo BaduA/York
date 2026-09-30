@@ -302,23 +302,11 @@ const BASE_PRICE = 250;
 
 // ── Glass SVG ─────────────────────────────────────────────────────────────────
 
-type SvgRect = { x: number; y: number; w: number; h: number };
-type SvgEllipse = { cx: number; cy: number; rx: number; ry: number };
-type SvgIce = { x: number; y: number; size: number; rot: number };
-type SvgLine = { x1: number; y1: number; x2: number; y2: number };
-
 type GlassGeom = {
-  outer: string;
-  inner: string;
-  stem?: SvgRect;
-  baseEllipse?: SvgEllipse;
-  baseLine?: SvgLine;
-  spirit: [number, number];
-  cordial: [number, number];
-  mixer: [number, number];
-  ice?: SvgIce;
-  saltRim?: boolean;
-  shine: string;
+  // Bardağın kapalı silüeti (bowl + varsa stem + varsa base tek path).
+  silhouette: string;
+  // Bowl interior — liquid'in clip'lendiği kapalı alan.
+  interior: string;
   interiorTop: number;
   interiorFloor: number;
   capacityMl: number;
@@ -326,72 +314,45 @@ type GlassGeom = {
 
 const GLASS_GEOM: Record<GlassId, GlassGeom> = {
   coupe: {
-    outer: "M 15,60 C 55,64 145,64 185,60 C 175,175 130,205 100,207 C 70,205 25,175 15,60 Z",
-    inner: "M 22,68 C 60,72 140,72 178,68 C 168,172 128,200 100,202 C 72,200 32,172 22,68 Z",
-    stem: { x: 95, y: 207, w: 10, h: 108 },
-    baseEllipse: { cx: 100, cy: 322, rx: 44, ry: 7 },
-    spirit: [155, 202],
-    cordial: [122, 155],
-    mixer: [85, 122],
-    ice: { x: 87, y: 92, size: 22, rot: 15 },
-    shine: "M 32,80 C 25,120 32,160 48,188",
-    interiorTop: 85,
-    interiorFloor: 202,
+    silhouette:
+      "M 15,50 L 185,50 C 192,82 178,138 108,144 L 108,314 L 158,326 L 158,330 L 42,330 L 42,326 L 92,314 L 92,144 C 22,138 8,82 15,50 Z",
+    interior:
+      "M 22,56 L 178,56 C 184,82 172,132 108,138 L 92,138 C 28,132 16,82 22,56 Z",
+    interiorTop: 56,
+    interiorFloor: 138,
     capacityMl: 180,
   },
   "old-fashioned": {
-    outer: "M 25,155 L 175,155 L 172,318 L 28,318 Z",
-    inner: "M 32,163 L 168,163 L 166,305 L 34,305 Z",
-    baseLine: { x1: 32, y1: 306, x2: 168, y2: 306 },
-    spirit: [255, 305],
-    cordial: [222, 255],
-    mixer: [172, 222],
-    ice: { x: 88, y: 175, size: 24, rot: 12 },
-    shine: "M 42,172 L 40,298",
-    interiorTop: 172,
-    interiorFloor: 305,
+    silhouette:
+      "M 30,140 L 170,140 C 175,140 175,145 175,145 L 172,320 C 172,325 168,325 168,325 L 32,325 C 28,325 28,320 28,320 L 25,145 C 25,140 30,140 30,140 Z",
+    interior: "M 34,148 L 166,148 L 164,314 L 36,314 Z",
+    interiorTop: 148,
+    interiorFloor: 314,
     capacityMl: 240,
   },
   highball: {
-    outer: "M 55,50 L 145,50 L 143,320 L 57,320 Z",
-    inner: "M 62,58 L 138,58 L 137,315 L 63,315 Z",
-    baseLine: { x1: 62, y1: 315, x2: 138, y2: 315 },
-    spirit: [235, 315],
-    cordial: [180, 235],
-    mixer: [90, 180],
-    ice: { x: 88, y: 100, size: 24, rot: -8 },
-    shine: "M 68,72 L 66,300",
-    interiorTop: 90,
-    interiorFloor: 315,
+    silhouette:
+      "M 62,30 L 138,30 C 143,30 143,35 143,35 L 141,320 C 141,325 137,325 137,325 L 63,325 C 59,325 59,320 59,320 L 57,35 C 57,30 62,30 62,30 Z",
+    interior: "M 62,38 L 138,38 L 137,318 L 63,318 Z",
+    interiorTop: 38,
+    interiorFloor: 318,
     capacityMl: 300,
   },
   "nick-nora": {
-    outer: "M 52,60 C 68,63 132,63 148,60 C 145,165 128,205 100,208 C 72,205 55,165 52,60 Z",
-    inner: "M 58,68 C 72,71 128,71 142,68 C 139,160 126,200 100,203 C 74,200 61,160 58,68 Z",
-    stem: { x: 95, y: 208, w: 10, h: 107 },
-    baseEllipse: { cx: 100, cy: 322, rx: 38, ry: 7 },
-    spirit: [155, 203],
-    cordial: [122, 155],
-    mixer: [85, 122],
-    ice: { x: 89, y: 92, size: 22, rot: 20 },
-    shine: "M 62,80 C 58,120 66,165 80,195",
-    interiorTop: 85,
-    interiorFloor: 203,
+    silhouette:
+      "M 10,28 L 190,28 L 106,175 L 106,314 L 158,326 L 158,330 L 42,330 L 42,326 L 94,314 L 94,175 Z",
+    interior: "M 18,34 L 182,34 L 106,168 L 94,168 Z",
+    interiorTop: 34,
+    interiorFloor: 168,
     capacityMl: 150,
   },
   margarita: {
-    outer: "M 8,55 L 192,55 L 150,135 C 155,178 130,200 100,205 C 70,200 45,178 50,135 L 8,55 Z",
-    inner: "M 18,63 L 182,63 L 145,135 C 148,172 128,197 100,200 C 72,197 52,172 55,135 L 18,63 Z",
-    stem: { x: 95, y: 205, w: 10, h: 110 },
-    baseEllipse: { cx: 100, cy: 322, rx: 44, ry: 7 },
-    spirit: [165, 198],
-    cordial: [140, 165],
-    mixer: [100, 140],
-    ice: { x: 90, y: 108, size: 18, rot: 15 },
-    saltRim: true,
-    shine: "M 30,70 C 45,105 60,130 65,155 C 68,180 82,195 92,200",
-    interiorTop: 100,
-    interiorFloor: 200,
+    silhouette:
+      "M 8,42 L 192,42 L 152,132 C 158,175 128,205 108,210 L 108,314 L 62,318 C 58,322 58,326 62,330 L 138,330 C 142,326 142,322 138,318 L 92,314 L 92,210 C 72,205 42,175 48,132 L 8,42 Z",
+    interior:
+      "M 22,52 L 178,52 L 148,132 C 152,170 128,200 100,204 C 72,200 48,170 52,132 L 22,52 Z",
+    interiorTop: 118,
+    interiorFloor: 204,
     capacityMl: 260,
   },
 };
@@ -505,79 +466,16 @@ function GlassSVG({
           <stop offset="50%" style={{ stopColor: blendedColors[1], transition: colorTransition }} />
           <stop offset="100%" style={{ stopColor: blendedColors[2], transition: colorTransition }} />
         </linearGradient>
-        <linearGradient id={`glassBody-${uid}`} x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="rgba(255,255,255,0.08)" />
-          <stop offset="30%" stopColor="rgba(255,255,255,0.18)" />
-          <stop offset="55%" stopColor="rgba(255,255,255,0.03)" />
-          <stop offset="85%" stopColor="rgba(255,255,255,0.12)" />
-          <stop offset="100%" stopColor="rgba(255,255,255,0.05)" />
-        </linearGradient>
-        <clipPath id={`clip-${uid}`}>
-          <path d={g.inner} />
-        </clipPath>
-        <clipPath id={`outerClip-${uid}`}>
-          <path d={g.outer} />
+        <clipPath id={`interior-${uid}`}>
+          <path d={g.interior} />
         </clipPath>
       </defs>
 
-      {/* Base plate (stemmed glasses only) */}
-      {g.baseEllipse && (
-        <>
-          <ellipse
-            cx={g.baseEllipse.cx}
-            cy={g.baseEllipse.cy + 3}
-            rx={g.baseEllipse.rx}
-            ry={g.baseEllipse.ry * 0.45}
-            fill="rgba(0,0,0,0.4)"
-          />
-          <ellipse
-            cx={g.baseEllipse.cx}
-            cy={g.baseEllipse.cy}
-            rx={g.baseEllipse.rx}
-            ry={g.baseEllipse.ry}
-            fill="rgba(255,255,255,0.08)"
-            stroke="rgba(255,255,255,0.4)"
-            strokeWidth="1.8"
-          />
-        </>
-      )}
+      {/* Glass silhouette body — hafif cam tonu */}
+      <path d={g.silhouette} fill="rgba(255,255,255,0.08)" />
 
-      {/* Stem */}
-      {g.stem && (
-        <>
-          <rect
-            x={g.stem.x}
-            y={g.stem.y}
-            width={g.stem.w}
-            height={g.stem.h}
-            fill={`url(#glassBody-${uid})`}
-          />
-          <line
-            x1={g.stem.x}
-            y1={g.stem.y}
-            x2={g.stem.x}
-            y2={g.stem.y + g.stem.h}
-            stroke="rgba(255,255,255,0.4)"
-            strokeWidth="1.5"
-          />
-          <line
-            x1={g.stem.x + g.stem.w}
-            y1={g.stem.y}
-            x2={g.stem.x + g.stem.w}
-            y2={g.stem.y + g.stem.h}
-            stroke="rgba(255,255,255,0.4)"
-            strokeWidth="1.5"
-          />
-        </>
-      )}
-
-      {/* Glass body backdrop */}
-      <path d={g.outer} fill={`url(#glassBody-${uid})`} />
-
-      {/* Liquid layers, clipped to inner path. y+height animate together so each rect
-          grows upward from the interior floor (bottom-up fill). */}
-      <g clipPath={`url(#clip-${uid})`}>
-        {/* Combined liquid — spirit + mixer volumes stacked, colors blended by portion */}
+      {/* Liquid clipped to interior bowl */}
+      <g clipPath={`url(#interior-${uid})`}>
         <rect
           x="0"
           width="200"
@@ -588,62 +486,15 @@ function GlassSVG({
         />
       </g>
 
-      {/* Interior floor line (rocks/highball) */}
-      {g.baseLine && (
-        <line
-          x1={g.baseLine.x1}
-          y1={g.baseLine.y1}
-          x2={g.baseLine.x2}
-          y2={g.baseLine.y2}
-          stroke="rgba(255,255,255,0.3)"
-          strokeWidth="1.2"
-        />
-      )}
-
-      {/* Salt rim (margarita) */}
-      {g.saltRim &&
-        Array.from({ length: 24 }).map((_, i) => {
-          const x = 10 + (i / 23) * 180;
-          const y = 52 + (i % 2 === 0 ? 0 : -2);
-          const r = 1.3 + (i % 3) * 0.35;
-          return <circle key={i} cx={x} cy={y} r={r} fill="rgba(255,255,255,0.8)" />;
-        })}
-
-      {/* Glass outer outline */}
+      {/* Silhouette outline stroke — cam çeperi */}
       <path
-        d={g.outer}
+        d={g.silhouette}
         fill="none"
-        stroke="rgba(255,255,255,0.42)"
-        strokeWidth="2.2"
+        stroke="rgba(255,255,255,0.5)"
+        strokeWidth="2"
         strokeLinejoin="round"
         strokeLinecap="round"
       />
-
-      {/* Shine highlight (clipped to glass interior for realism) */}
-      <g clipPath={`url(#outerClip-${uid})`}>
-        <path
-          d={g.shine}
-          fill="none"
-          stroke="rgba(255,255,255,0.4)"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          opacity="0.7"
-        />
-      </g>
-
-      {/* Base plate top-ring (drawn on top so stem tucks under nicely) */}
-      {g.baseEllipse && (
-        <ellipse
-          cx={g.baseEllipse.cx}
-          cy={g.baseEllipse.cy - g.baseEllipse.ry}
-          rx={g.baseEllipse.rx * 0.35}
-          ry={g.baseEllipse.ry * 0.35}
-          fill="rgba(255,255,255,0.08)"
-          stroke="rgba(255,255,255,0.35)"
-          strokeWidth="1.2"
-        />
-      )}
-
     </svg>
   );
 }
