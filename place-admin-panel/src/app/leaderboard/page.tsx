@@ -11,14 +11,12 @@ const contestants = [
     avatar: "https://randomuser.me/api/portraits/women/44.jpg",
     avatarBorder: "border-primary/50",
     recipe: "Bulleit Rye, Hibiscus & Yuzu Cordial, Elmas Buz, Tütsü Biberiye",
+    price: "465 ₺",
     orders: "624 Adet",
-    votes: "3,840",
-    voteToday: "+180 bugün",
-    voteTodayColor: "text-emerald-400",
-    voteColor: "text-primary",
+    earnings: "289.440 ₺",
+    earningsColor: "text-primary",
     rowClass: "bg-primary/5",
     rankClass: "bg-primary text-primary-foreground shadow-sm",
-    actions: "menu",
   },
   {
     rank: 2,
@@ -29,14 +27,12 @@ const contestants = [
     avatar: "https://randomuser.me/api/portraits/men/32.jpg",
     avatarBorder: "border-border",
     recipe: "Mezcal Espadin, Taze Misket Limonu, Agave, Kurutulmuş Portakal",
+    price: "385 ₺",
     orders: "512 Adet",
-    votes: "2,910",
-    voteToday: "+92 bugün",
-    voteTodayColor: "text-emerald-400",
-    voteColor: "text-foreground",
+    earnings: "197.120 ₺",
+    earningsColor: "text-foreground",
     rowClass: "",
     rankClass: "bg-secondary text-foreground",
-    actions: "edit",
   },
   {
     rank: 3,
@@ -46,15 +42,13 @@ const contestants = [
     authorColor: "text-primary",
     avatar: "https://lh3.googleusercontent.com/a/ACg8ocJCxwMUJaUR_K6XCsiAdpE7nvLNJBzBaXmv3EjdUs_F69FMRS4=s96-c",
     avatarBorder: "border-primary/50",
-    recipe: "Japanese Botanical Gin, Böğürtlen Cordial, Tonik, Taze Nane & Biberiye",
+    recipe: "Botanical Gin, Böğürtlen Cordial, Tonik, Taze Nane & Biberiye",
+    price: "406 ₺",
     orders: "390 Adet",
-    votes: "2,150",
-    voteToday: "+44 bugün",
-    voteTodayColor: "text-muted-foreground",
-    voteColor: "text-foreground",
+    earnings: "158.340 ₺",
+    earningsColor: "text-foreground",
     rowClass: "",
     rankClass: "bg-secondary text-foreground",
-    actions: "edit",
   },
   {
     rank: 4,
@@ -65,14 +59,12 @@ const contestants = [
     avatar: "https://randomuser.me/api/portraits/women/68.jpg",
     avatarBorder: "border-border",
     recipe: "Campari, Kırmızı Vermut, Greyfurt Köpüğü, Prosecco",
+    price: "365 ₺",
     orders: "348 Adet",
-    votes: "1,780",
-    voteToday: "+29 bugün",
-    voteTodayColor: "text-muted-foreground",
-    voteColor: "text-foreground",
+    earnings: "126.972 ₺",
+    earningsColor: "text-foreground",
     rowClass: "",
     rankClass: "bg-secondary text-muted-foreground",
-    actions: "edit",
   },
   {
     rank: 5,
@@ -82,15 +74,13 @@ const contestants = [
     authorColor: "text-destructive font-bold",
     avatar: "https://randomuser.me/api/portraits/men/71.jpg",
     avatarBorder: "border-destructive/50",
-    recipe: "Absente, 100 Proof Rye, Jalapeno Bitter, Tabasco (İçilebilirlik Düşük)",
+    recipe: "Absente, 100 Proof Rye, Jalapeno Bitter, Tabasco",
+    price: "490 ₺",
     orders: "12 Adet",
-    votes: "1,240",
-    voteToday: "Şüpheli Oy Artışı",
-    voteTodayColor: "text-destructive",
-    voteColor: "text-foreground",
+    earnings: "5.880 ₺",
+    earningsColor: "text-muted-foreground",
     rowClass: "bg-red-950/15",
     rankClass: "bg-destructive/30 text-destructive",
-    actions: "disqualify",
   },
 ];
 
@@ -134,136 +124,67 @@ export default function LeaderboardPage() {
           <nav className="flex items-center gap-2 overflow-x-auto py-2.5 text-xs">
             <Link href="/" className="px-4 py-2 rounded-lg bg-secondary text-muted-foreground hover:text-foreground hover:bg-muted font-medium flex items-center gap-2 shrink-0 transition-colors">
               <Icon icon="solar:chart-square-bold" width={16} height={16} />
-              Genel Bakış &amp; Ciro Analitiği
+              Genel Bakış
             </Link>
             <Link href="/menu" className="px-4 py-2 rounded-lg bg-secondary text-muted-foreground hover:text-foreground hover:bg-muted font-medium flex items-center gap-2 shrink-0 transition-colors">
               <Icon icon="solar:menu-dots-square-bold" width={16} height={16} />
-              Menü Düzenleme (Fiyat &amp; Stok)
+              Menü
             </Link>
             <Link href="/cocktail-lab" className="px-4 py-2 rounded-lg bg-secondary text-muted-foreground hover:text-foreground hover:bg-muted font-medium flex items-center gap-2 shrink-0 transition-colors">
               <Icon icon="solar:cup-hot-bold" width={16} height={16} />
-              Kokteyl Lab Malzemeleri
+              Kokteyl Lab
             </Link>
             <Link href="/leaderboard" className="px-4 py-2 rounded-lg bg-primary text-primary-foreground font-semibold flex items-center gap-2 shrink-0 shadow-sm">
               <Icon icon="solar:cup-star-bold" width={16} height={16} />
-              Liderlik Tablosu &amp; Oylar
+              Liderlik Tablosu
             </Link>
-            <Link href="/settings" className="px-4 py-2 rounded-lg bg-secondary text-muted-foreground hover:text-foreground hover:bg-muted font-medium flex items-center gap-2 shrink-0 transition-colors">
-              <Icon icon="solar:settings-bold" width={16} height={16} />
-              Sistem Ayarları
+            <Link href="/orders" className="px-4 py-2 rounded-lg bg-secondary text-muted-foreground hover:text-foreground hover:bg-muted font-medium flex items-center gap-2 shrink-0 transition-colors">
+              <Icon icon="solar:bill-list-bold" width={16} height={16} />
+              Siparişler
             </Link>
           </nav>
         </div>
       </div>
 
       {/* Main */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 flex-1">
-
-        {/* Title + season selector */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div>
-            <h1 className="font-heading text-2xl sm:text-3xl font-bold uppercase tracking-wider text-foreground">
-              AYIN KOKTEYLİ YARIŞMASI &amp; OYLAMA DENETİMİ
-            </h1>
-            <p className="text-xs text-muted-foreground">
-              Müşterilerin oluşturduğu kokteylleri denetleyin, hileli oyları engelleyin ve 1. olan reçeteyi doğrudan resmi menüye aktarın
-            </p>
-          </div>
-          <div className="flex items-center gap-2 flex-wrap">
-            <select defaultValue="Mayıs 2025 (Aktif Sezon)" className="bg-card border border-border text-foreground text-xs rounded-xl px-3 py-2 font-mono font-semibold focus:border-primary focus:outline-none">
-              <option>Mayıs 2025 (Aktif Sezon)</option>
-              <option>Nisan 2025 (Crimson Dusk Kazandı)</option>
-              <option>Mart 2025 (Velvet Smoke Kazandı)</option>
-            </select>
-            <button className="px-3.5 py-2 rounded-xl bg-secondary border border-border hover:bg-muted text-xs font-semibold text-foreground flex items-center gap-1.5">
-              <Icon icon="solar:refresh-linear" width={14} height={14} />
-              Oyları Yenile
-            </button>
-            <button className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-bold font-heading uppercase tracking-wider shadow-md shadow-primary/20 hover:bg-primary/90 transition-all">
-              <Icon icon="solar:cup-star-bold" width={16} height={16} />
-              Şampiyonu Menüye Aktar
-            </button>
-          </div>
-        </div>
-
-        {/* #1 Leader featured card */}
-        <div className="bg-card rounded-2xl border-2 border-primary/60 p-6 relative overflow-hidden">
-          <div className="absolute -right-10 -bottom-10 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-            <div className="lg:col-span-8 space-y-4">
-              <div className="flex items-center gap-3 flex-wrap">
-                <span className="px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold font-mono tracking-wider flex items-center gap-1 shadow-md">
-                  <Icon icon="solar:cup-star-bold" width={16} height={16} />
-                  #1 MEVCUT LİDER • MENÜ ADAYI
-                </span>
-              </div>
-              <div>
-                <h2 className="font-heading text-2xl sm:text-3xl font-bold uppercase tracking-wider text-foreground">THE RED ROOM</h2>
-                <div className="flex items-center gap-2 mt-1">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="https://randomuser.me/api/portraits/women/44.jpg" className="size-6 rounded-full border border-primary/40 object-cover" alt="Deniz Kılıç" />
-                  <p className="text-xs text-muted-foreground">
-                    Oluşturan: <strong className="text-foreground">Deniz Kılıç</strong> (Bilkent Öğrenci No: #2210492) • 12 Mayıs 2025
-                  </p>
-                </div>
-              </div>
-              <div className="flex flex-wrap gap-2 text-xs">
-                <span className="px-3 py-1.5 rounded-lg bg-background border border-border text-foreground font-mono">
-                  <strong className="text-primary font-bold">Baz:</strong> Bulleit Rye Whiskey (50ml)
-                </span>
-                <span className="px-3 py-1.5 rounded-lg bg-background border border-border text-foreground font-mono">
-                  <strong className="text-amber-400 font-bold">Mikser:</strong> Hibiscus Redüksiyonu &amp; Yuzu (30ml)
-                </span>
-                <span className="px-3 py-1.5 rounded-lg bg-background border border-border text-foreground font-mono">
-                  <strong className="text-blue-400 font-bold">Buz:</strong> Elmas Kesim Kristal Buz
-                </span>
-                <span className="px-3 py-1.5 rounded-lg bg-background border border-border text-foreground font-mono">
-                  <strong className="text-emerald-400 font-bold">Sunum:</strong> Tütsülenmiş Biberiye &amp; Altın Tozu
-                </span>
-              </div>
-            </div>
-            <div className="lg:col-span-4 bg-background/80 backdrop-blur-sm rounded-xl border border-border p-4 space-y-3 text-xs">
-              <div className="flex items-center justify-between font-mono">
-                <span className="text-muted-foreground">Toplam Onaylı Oy:</span>
-                <span className="font-bold text-primary text-base">3,840 Oy (%30.7)</span>
-              </div>
-              <div className="flex items-center justify-between font-mono">
-                <span className="text-muted-foreground">Mekan İçi Sipariş:</span>
-                <span className="font-bold text-foreground">624 Kadeh</span>
-              </div>
-              <div className="flex items-center justify-between font-mono">
-                <span className="text-muted-foreground">Önerilen Menü Satış:</span>
-                <span className="font-bold text-emerald-400 font-mono text-sm">465 ₺ (%81 Marj)</span>
-              </div>
-              <div className="pt-2">
-                <button className="w-full py-2.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground font-heading uppercase font-bold text-xs tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-primary/30 transition-all">
-                  <Icon icon="solar:diskette-bold" width={16} height={16} />
-                  Haziran Menüsüne Resmen Ekle
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Full competition table */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1">
         <div className="bg-card rounded-2xl border border-border p-4 sm:p-6 space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border pb-4">
             <div>
-              <h3 className="font-heading text-lg font-bold uppercase tracking-wider text-foreground">TÜM YARIŞMACI KOKTEYLLER &amp; OYLAMA SIRALAMASI</h3>
-              <p className="text-xs text-muted-foreground">Mayıs ayı boyunca oluşturulup yarışmaya katılan 48 reçete</p>
+              <h3 className="font-heading text-lg font-bold uppercase tracking-wider text-foreground">AYIN KOKTEYLİ SIRALAMASI</h3>
+              <p className="text-xs text-muted-foreground">Mayıs 2025 — Yarışmaya katılan 48 reçete</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <select defaultValue="Mayıs 2025 (Aktif Sezon)" className="bg-secondary border border-border text-foreground text-xs rounded-xl px-3 py-2 font-mono font-semibold focus:border-primary focus:outline-none">
+                <option>Mayıs 2025 (Aktif Sezon)</option>
+                <option>Nisan 2025 (Crimson Dusk Kazandı)</option>
+                <option>Mart 2025 (Velvet Smoke Kazandı)</option>
+              </select>
+              <button className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-bold font-heading uppercase tracking-wider shadow-md shadow-primary/20 hover:bg-primary/90 transition-all">
+                <Icon icon="solar:cup-star-bold" width={14} height={14} />
+                Menüye Aktar
+              </button>
             </div>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs border-collapse">
+            <table className="w-full text-left text-xs border-collapse table-fixed">
+              <colgroup>
+                <col className="w-14" />
+                <col className="w-[22%]" />
+                <col />
+                <col className="w-24" />
+                <col className="w-28" />
+                <col className="w-32" />
+              </colgroup>
               <thead>
                 <tr className="border-b border-border text-[11px] font-mono uppercase text-muted-foreground bg-background/50">
-                  <th className="py-3 px-3 font-semibold text-center w-16">Sıra</th>
+                  <th className="py-3 px-3 font-semibold text-center">Sıra</th>
                   <th className="py-3 px-3 font-semibold">Kokteyl Adı &amp; Oluşturan</th>
                   <th className="py-3 px-3 font-semibold">Reçete Özeti</th>
-                  <th className="py-3 px-3 font-semibold text-right">Lab Siparişi</th>
-                  <th className="py-3 px-3 font-semibold text-right">Doğrulanmış Oy</th>
-                  <th className="py-3 px-3 font-semibold text-right">İşlemler</th>
+                  <th className="py-3 px-3 font-semibold text-right">Fiyat</th>
+                  <th className="py-3 px-3 font-semibold text-right">Sipariş Sayısı</th>
+                  <th className="py-3 px-3 font-semibold text-right">Toplam Kazanç</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border/60">
@@ -286,42 +207,17 @@ export default function LeaderboardPage() {
                         </div>
                       </div>
                     </td>
-                    <td className="py-3.5 px-3 text-muted-foreground max-w-xs truncate">{c.recipe}</td>
+                    <td className="py-3.5 px-3 text-muted-foreground">
+                      <span className="line-clamp-2 leading-relaxed">{c.recipe}</span>
+                    </td>
+                    <td className="py-3.5 px-3 text-right font-mono font-bold text-foreground">
+                      {c.price}
+                    </td>
                     <td className={`py-3.5 px-3 text-right font-mono font-bold ${c.rank === 5 ? "text-muted-foreground" : "text-foreground"}`}>
                       {c.orders}
                     </td>
-                    <td className="py-3.5 px-3 text-right">
-                      <div className={`font-mono font-bold text-sm ${c.voteColor}`}>{c.votes}</div>
-                      <div className={`text-[10px] font-mono ${c.voteTodayColor}`}>{c.voteToday}</div>
-                    </td>
-                    <td className="py-3.5 px-3 text-right">
-                      <div className="flex items-center justify-end gap-1.5">
-                        {c.actions === "menu" && (
-                          <>
-                            <button className="px-2.5 py-1 rounded-lg bg-primary text-primary-foreground font-semibold text-[11px]">
-                              Menüye Ekle
-                            </button>
-                            <button className="p-1.5 rounded-lg bg-secondary hover:bg-muted text-foreground border border-border">
-                              <Icon icon="solar:eye-bold" width={14} height={14} />
-                            </button>
-                          </>
-                        )}
-                        {c.actions === "edit" && (
-                          <>
-                            <button className="p-1.5 rounded-lg bg-secondary hover:bg-muted text-foreground border border-border">
-                              <Icon icon="solar:pen-bold" width={14} height={14} />
-                            </button>
-                            <button className="p-1.5 rounded-lg bg-secondary hover:bg-muted text-foreground border border-border">
-                              <Icon icon="solar:eye-bold" width={14} height={14} />
-                            </button>
-                          </>
-                        )}
-                        {c.actions === "disqualify" && (
-                          <button className="px-2 py-1 rounded-lg bg-destructive text-primary-foreground font-semibold text-[11px]">
-                            Diskalifiye
-                          </button>
-                        )}
-                      </div>
+                    <td className={`py-3.5 px-3 text-right font-mono font-bold text-sm ${c.earningsColor}`}>
+                      {c.earnings}
                     </td>
                   </tr>
                 ))}

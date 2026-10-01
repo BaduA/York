@@ -45,23 +45,23 @@ export default function DashboardPage() {
           <nav className="flex items-center gap-2 overflow-x-auto py-2.5 text-xs">
             <Link href="/" className="px-4 py-2 rounded-lg bg-primary text-primary-foreground font-semibold flex items-center gap-2 shrink-0 shadow-sm">
               <Icon icon="solar:chart-square-bold" width={16} height={16} />
-              Genel Bakış &amp; Ciro Analitiği
+              Genel Bakış
             </Link>
             <Link href="/menu" className="px-4 py-2 rounded-lg bg-secondary text-muted-foreground hover:text-foreground hover:bg-muted font-medium flex items-center gap-2 shrink-0 transition-colors">
               <Icon icon="solar:menu-dots-square-bold" width={16} height={16} />
-              Menü Düzenleme
+              Menü
             </Link>
             <Link href="/cocktail-lab" className="px-4 py-2 rounded-lg bg-secondary text-muted-foreground hover:text-foreground hover:bg-muted font-medium flex items-center gap-2 shrink-0 transition-colors">
               <Icon icon="solar:cup-hot-bold" width={16} height={16} />
-              Kokteyl Lab Malzemeleri
+              Kokteyl Lab
             </Link>
             <Link href="/leaderboard" className="px-4 py-2 rounded-lg bg-secondary text-muted-foreground hover:text-foreground hover:bg-muted font-medium flex items-center gap-2 shrink-0 transition-colors">
               <Icon icon="solar:cup-star-bold" width={16} height={16} />
-              Liderlik Tablosu &amp; Oylar
+              Liderlik Tablosu
             </Link>
-            <Link href="/settings" className="px-4 py-2 rounded-lg bg-secondary text-muted-foreground hover:text-foreground hover:bg-muted font-medium flex items-center gap-2 shrink-0 transition-colors">
-              <Icon icon="solar:settings-bold" width={16} height={16} />
-              Sistem Ayarları
+            <Link href="/orders" className="px-4 py-2 rounded-lg bg-secondary text-muted-foreground hover:text-foreground hover:bg-muted font-medium flex items-center gap-2 shrink-0 transition-colors">
+              <Icon icon="solar:bill-list-bold" width={16} height={16} />
+              Siparişler
             </Link>
           </nav>
         </div>
