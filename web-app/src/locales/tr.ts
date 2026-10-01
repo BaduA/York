@@ -11,6 +11,7 @@ export const tr = {
     menu: "Menü",
     cocktailLab: "Kokteyl Lab",
     leaderboard: "Sıralama",
+    music: "Müzik",
     hallOfFame: "Şeref Listesi",
     happyHour: "Mutlu Saat",
   },

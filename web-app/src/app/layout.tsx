@@ -46,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           strategy="beforeInteractive"
         />
       </head>
-      <body><Providers>{children}</Providers></body>
+      <body className="pb-16 md:pb-0"><Providers>{children}</Providers></body>
     </html>
   );
 }

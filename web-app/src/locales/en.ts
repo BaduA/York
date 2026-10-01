@@ -13,6 +13,7 @@ export const en: Translations = {
     menu: "Menu",
     cocktailLab: "Cocktail Lab",
     leaderboard: "Leaderboard",
+    music: "Music",
     hallOfFame: "Hall of Fame",
     happyHour: "Happy Hour",
   },
