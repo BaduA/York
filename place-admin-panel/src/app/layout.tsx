@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans, Playfair_Display, JetBrains_Mono, Bebas_Neue } from "next/font/google";
+import { LoadingProvider } from "@/components/LoadingBar";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -37,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="tr"
       className={`${dmSans.variable} ${playfair.variable} ${jetbrains.variable} ${bebas.variable}`}
     >
-      <body>{children}</body>
+      <body><LoadingProvider>{children}</LoadingProvider></body>
     </html>
   );
 }

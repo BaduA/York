@@ -5,7 +5,7 @@ import { nanoid } from '../common/nanoid';
 
 class PresignDto {
   @IsString()
-  @IsIn(['ingredients', 'cocktails'])
+  @IsIn(['ingredients', 'cocktails', 'lab-items', 'menu-sections'])
   folder: string;
 
   @IsString()

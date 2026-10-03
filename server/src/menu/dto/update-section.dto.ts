@@ -12,19 +12,20 @@ export class UpdateSectionDto {
   @IsOptional()
   @IsString()
   @MaxLength(300)
-  @Transform(({ value }: { value: string }) => value?.trim())
-  subtitle?: string;
+  @Transform(({ value }: { value: string | null }) => value === null ? null : value?.trim())
+  subtitle?: string | null;
 
   @IsOptional()
   @IsString()
   @MaxLength(100)
+  @Transform(({ value }: { value: string }) => value?.trim())
   icon?: string;
 
   @IsOptional()
   @IsString()
   @MaxLength(100)
-  @Transform(({ value }: { value: string }) => value?.trim())
-  badge?: string;
+  @Transform(({ value }: { value: string | null }) => value === null ? null : value?.trim())
+  badge?: string | null;
 
   @IsOptional()
   @IsInt()
